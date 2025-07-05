@@ -1,4 +1,54 @@
-## MVP: Knowledge Graph Ingestion from Polito Cryptography Course Notes
+**PoC TravelForge – Progetto "TravelForge Spark"**
+
+**Obiettivo**: In 4 settimane dimostrare un layer di **Automazione Intelligente e Interattiva** per viaggi, organizzazione di itinerari e scambio case, integrando RPA, AI e UX gamificata per host e viaggiatori.
+
+---
+
+## 1. Ambito e Funzionalità
+
+| Feature                      | Descrizione                                                                                                          | Valore Creativo                                    |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Itinerary Auto-Builder**   | Bot che raccoglie preferenze utente (destinazioni, budget, attività) e genera automaticamente un itinerario OCR-free | Personalizzazione in un click                      |
+| **Dynamic Price Aggregator** | Modulo RPA che scansiona portali di voli, hotel e scambio case, aggrega tariffe e valuta opportunità di scambio      | Risparmio tempo e denaro                           |
+| **Home Exchange Matcher**    | AI service che analizza preferenze di host e viaggiatori, suggerisce possibili scambi di alloggio                    | Massima ottimizzazione delle offerte               |
+| **Travel Leaderboard**       | Dashboard gamificata con badge (es. "Explorer Pro"), punti e livelli basati su feedback e attività completate        | Engagement e fidelizzazione                        |
+| **Real-Time Alerts**         | Notifiche predittive su offerte lampo, cambi di prezzo e disponibilità case                                          | Viaggiatori sempre aggiornati e pronti a prenotare |
+| **Interactive Demo UI**      | Frontend in Angular con mappa interattiva, drag\&drop per modificare itinerari e preview dello scambio case          | Esperienza wow per stakeholder                     |
+
+## 2. Architettura PoC
+
+1. **Backend**: FastAPI + Python (moduli ML: scikit-learn per matching, Pandas)
+2. **Data Store**: PostgreSQL (profilo utente, itinerari, log scambio) + Redis (cache delle offerte)
+3. **AI Service**: microservizio per matching case e generazione itinerari basato su KMeans e NLP su Flink
+4. **RPA Module**: Bot containerizzati che estraggono dati da portali di viaggio con Puppeteer + OCR leggeri
+5. **Frontend**: Angular + Tailwind (Itinerary Builder, Exchange Dashboard)
+6. **Orchestrazione**: Kubernetes minimal (API, AI, RPA agent, Redis)
+7. **CI/CD**: GitHub Actions (pipelines su dev namespace con deploy automatico)
+
+## 3. Timeline & Deliverables
+
+| Settimana | Attività                                                                                              | Deliverable                              |
+| --------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| 1         | Setup ambiente, DB schema (utenti, case, itinerari), stub API RPA e AI                                | Repo iniziale, schema DB, API stub       |
+| 2         | Itinerary Auto-Builder (raccolta preferenze + generazione con NLP)                                    | Microservizio generatore itinerari       |
+| 3         | Dynamic Price Aggregator + Home Exchange Matcher (training clustering + matching API)                 | Servizi di scraping e matching operativi |
+| 4         | Gamification Engine + Demo UI (Leaderboard, mappa interattiva) + Test end-to-end + Documentazione PoC | UI demo interattiva, report PoC          |
+
+## 4. Metriche di Successo
+
+* **Soddisfazione Itinerario** ≥ 80% (valutazione utenti)
+* **Matching Accuracy** ≥ 75% (precisione suggerimenti scambio)
+* **Tasso di engagement** Gamification ≥ 60% degli utenti attivi
+* **Tempo medio di generazione itinerario** < 10s
+
+---
+
+*TravelForge Spark* dimostra come una piattaforma di travel tech possa utilizzare IPA avanzata per offrire ai viaggiatori e agli host un’esperienza personalizzata, proattiva e coinvolgente.
+
+
+
+
+## OLD MVP: Knowledge Graph Ingestion from Polito Cryptography Course Notes
 
 **Obiettivo**: creare un prototipo Python (MVP) che:
 
