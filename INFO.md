@@ -17,7 +17,7 @@
 * Smart Alerts & Links
 * Interactive Demo UI
 
-## 1. Ambito e Funzionalità
+## Ambito e Funzionalità
 
 | Feature                       | Descrizione                                                                                                                                          | Valore Creativo                         |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
@@ -32,7 +32,7 @@
 | **Smart Alerts & Links**      | Notifiche push su offerte lampo, variazioni prezzo, eventi imminenti, con link diretti ai siti di prenotazione e alle mappe interattive              | Proattività e click-through immediato   |
 | **Interactive Demo UI**       | Frontend Angular + Tailwind con interfaccia fluida: input meta/tempo, mappe dinamiche, drag\&drop per custom itinerari e preview “immersive”         | Esperienza utente premium e intuitiva   |
 
-## 2. Architettura PoC
+## Architettura PoC
 
 1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
 2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
@@ -52,7 +52,7 @@
 7. **CI/CD**: GitHub Actions (build, lint, test, deploy su dev e staging)
 8. **Monitoring**: Prometheus & Grafana (metriche API e RPA)
 
-## 3. Functional Prototype: Backend Itinerary Service
+## Functional Prototype: Backend Itinerary Service
 
 **Obiettivo**: Implementare in Python un endpoint FastAPI che, dati in input `city_country`, `duration_days`, `season_or_dates`, restituisca:
 
@@ -129,9 +129,7 @@
 
 ---
 
-4. Timeline & Deliverables (7 settimane)
-
-\| Settimana | Attività                                                                                                                                       | Deliverable                              |
+## Backend Timeline & Deliverables (7 settimane)
 
 1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
 2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
@@ -151,7 +149,9 @@
 7. **CI/CD**: GitHub Actions (build, lint, test, deploy su dev e staging)
 8. **Monitoring**: Prometheus & Grafana (metriche API e RPA)
 
-## 3. Timeline & Deliverables (7 settimane)
+
+
+## Timeline & Deliverables (7 settimane)
 
 | Settimana | Attività                                                                                                                                    | Deliverable                            |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
@@ -162,7 +162,7 @@
 | 5         | **Events & Nightlife Module**: scraping eventi in corso, raccomandazioni locali, AI filter per gusti; sviluppo UI lista eventi              | Servizio eventi + UI prototipo         |
 | 6         | **Car Sharing & Accommodation Advisor**: RPA price aggregator car sharing; AI consigli zone e periodi; Home Exchange Matcher                | Mobility dashboard + matching service  |
 | 7         | **Gamification Engine** + **Interactive Demo UI**: leaderboard, notifiche, link diretti, test end-to-end, documentazione, presentazione PoC | UI completa, report PoC, demo live     |
-
+                             |
 ## 4. Metriche di Successo
 
 * **Fluidità UX**: <2 click per ottenere itinerario completo
