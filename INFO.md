@@ -4,6 +4,19 @@
 
 ---
 
+## Elenco sintetico delle Features
+
+* Tourism Data Integrator
+* Itinerary Auto-Builder
+* Ticket Price Estimator
+* Events & Nightlife Module
+* Car Sharing & Mobility
+* Accommodation Advisor
+* Home Exchange Matcher
+* Travel Leaderboard
+* Smart Alerts & Links
+* Interactive Demo UI
+
 ## 1. Ambito e Funzionalità
 
 | Feature                       | Descrizione                                                                                                                                          | Valore Creativo                         |
@@ -20,6 +33,105 @@
 | **Interactive Demo UI**       | Frontend Angular + Tailwind con interfaccia fluida: input meta/tempo, mappe dinamiche, drag\&drop per custom itinerari e preview “immersive”         | Esperienza utente premium e intuitiva   |
 
 ## 2. Architettura PoC
+
+1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
+2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
+3. **AI Service**:
+
+   * Itinerary generation (seq2seq + GPT fallback)
+   * Recommendation (matching preferences)
+   * Regression per stima costi
+   * NLP per eventi, nightlife e recensioni
+4. **RPA Module**: Containerizzati (Puppeteer + OCR) per scraping:
+
+   * Tourism portals (Visit Berlin, City APIs)
+   * Event calendars (Eventbrite, Meetup)
+   * Car sharing APIs (ShareNow, Lime)
+5. **Frontend**: Angular + Tailwind (Itinerary Builder, Event Explorer, Mobility Dashboard, Leaderboard)
+6. **Orchestrazione**: Kubernetes (API, AI, RPA agent, Redis)
+7. **CI/CD**: GitHub Actions (build, lint, test, deploy su dev e staging)
+8. **Monitoring**: Prometheus & Grafana (metriche API e RPA)
+
+## 3. Functional Prototype: Backend Itinerary Service
+
+**Obiettivo**: Implementare in Python un endpoint FastAPI che, dati in input `city_country`, `duration_days`, `season_or_dates`, restituisca:
+
+1. **Galleria Immagini**: Le foto più significative (attrazioni, spiagge, architettura), ottenute tramite API di image search (es. Unsplash o Google Custom Search).
+2. **Report Itinerario Markdown**:
+
+   * Itinerario giorno-per-giorno con link ufficiali (siti musei, tour operator, city portal).
+   * Preventivo costi: tabella con dettaglio prezzi (biglietti musei, attività, trasporti) e totale.
+   * Link diretti ai provider per prenotazione (biglietti, hotel, car sharing).
+3. **Meccanismo di Function Calling**:
+
+   * Chiamata a GPT tramite l’API OpenAI con `functions` per:
+
+     * Generare schema itinerario base.
+     * Estrarre keyword per ricerca immagini e prezzi.
+   * Pipeline custom in Python per:
+
+     * Eseguire scraping o chiamate API a siti ufficiali.
+     * Validare e normalizzare i prezzi (evitando dati errati o inventati).
+
+### 3.1 Input e Output
+
+* **Input JSON**:
+
+```json
+{
+  "city_country": "Las Americas, Tenerife",
+  "duration_days": 10,
+  "season_or_dates": {"season": "estate", "from": "2025-08-10", "to": "2025-08-20"}
+}
+```
+
+* **Output Markdown**:
+
+```markdown
+# Itinerario per Las Americas, Tenerife (10 giorni, 10-20 agosto 2025)
+
+## 📸 Galleria Immagini
+![Spiaggia](link1)
+![Mount Teide](link2)
+...
+
+## 🗓️ Itinerario Giornaliero
+| Giorno | Attività                        | Link                                                |
+| ------ | ------------------------------- | --------------------------------------------------- |
+| 1      | Escursione al Mount Teide       | https://www.volcanoteide.com                        |
+| 2      | Visita Loro Parque              | https://www.loroparque.com/tickets                   |
+...
+
+## 💰 Preventivo Costi
+| Voce                  | Prezzo (€) |
+| --------------------- | ---------- |
+| Mount Teide           | 25         |
+| Loro Parque           | 35         |
+| Car sharing (giornaliero) | 40      |
+| **Totale Stimato**    | **1000**   |
+
+## 🔗 Link Prenotazione
+- Biglietti Mount Teide: https://www.volcanoteide.com
+- Car sharing: https://www.sharenow.com
+```
+
+### 3.2 Architettura e Pipeline
+
+1. **Endpoint FastAPI** `/generate-itinerary`
+2. **Service Layer**:
+
+   * `gpt_client.call_functions()` per struttura base itinerario
+   * `image_service.search_images(keywords)`
+   * `pricing_service.fetch_prices(items, dates)`
+   * `markdown_builder.build_report(data)`
+3. **Data Validation**: Controlli su prezzi e link (schema JSON + regex sui domini ufficiali).
+4. **Caching**: Redis per risposte di image search e price fetch per 1h.
+
+---
+
+4. Timeline & Deliverables (7 settimane)
+
+\| Settimana | Attività                                                                                                                                       | Deliverable                              |
 
 1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
 2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
