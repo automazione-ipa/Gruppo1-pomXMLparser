@@ -1,0 +1,12 @@
+# HTTP & Parsing
+requests>=2.32.4
+beautifulsoup4>=4.13.4
+lxml>=5.4.0
+# Graph Analytics and Data manipulation
+pandas>=1.2.0
+networkx>=3.2.1
+# (Opzionali) YAML config, storage e .env
+python-dotenv>=1.1.0
+PyYAML>=6.0.2
+# (Futuro) per Neo4j
+# neo4j>=4.3.1

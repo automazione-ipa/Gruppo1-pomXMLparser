@@ -1,0 +1,20 @@
+# URL di origine dei notes
+source:
+  url: "https://quantum-engineering-polito.github.io/CourseNotes/Cyber-Security/02_Cryptography/Cryptography"
+
+database:
+  # per SQLite locale
+  type: "sqlite"
+  path: "./data/graph.db"
+  # per Neo4j (se utilizzato)
+  neo4j_uri: "bolt://localhost:7687"
+  neo4j_user: "neo4j"
+  neo4j_password: "password"
+
+scraping:
+  headers:
+    User-Agent: "Mozilla/5.0 (compatible; ProtfolioBot/1.0)"
+
+graph:
+  use_neo4j: false
+  batch_size: 1000
