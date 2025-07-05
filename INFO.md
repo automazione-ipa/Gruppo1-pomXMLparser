@@ -1,51 +1,64 @@
-**PoC TravelForge – Progetto "TravelForge Spark"**
+# **PoC TravelForge – Progetto "TravelForge Spark"**
 
-**Obiettivo**: In 4 settimane dimostrare un layer di **Automazione Intelligente e Interattiva** per viaggi, organizzazione di itinerari e scambio case, integrando RPA, AI e UX gamificata per host e viaggiatori.
+**Obiettivo**: In 4 settimane creare una Proof of Concept di piattaforma intelligente per viaggi, organizzazione itinerari e scambio case, integrando:
+
+* **Automazione RPA** per raccolta e aggiornamento dati da diverse fonti online
+* **AI** per generazione personalizzata di itinerari e matching di scambio case
+* **Gamification** e UX interattiva per coinvolgere host e viaggiatori
 
 ---
 
 ## 1. Ambito e Funzionalità
 
-| Feature                      | Descrizione                                                                                                          | Valore Creativo                                    |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| **Itinerary Auto-Builder**   | Bot che raccoglie preferenze utente (destinazioni, budget, attività) e genera automaticamente un itinerario OCR-free | Personalizzazione in un click                      |
-| **Dynamic Price Aggregator** | Modulo RPA che scansiona portali di voli, hotel e scambio case, aggrega tariffe e valuta opportunità di scambio      | Risparmio tempo e denaro                           |
-| **Home Exchange Matcher**    | AI service che analizza preferenze di host e viaggiatori, suggerisce possibili scambi di alloggio                    | Massima ottimizzazione delle offerte               |
-| **Travel Leaderboard**       | Dashboard gamificata con badge (es. "Explorer Pro"), punti e livelli basati su feedback e attività completate        | Engagement e fidelizzazione                        |
-| **Real-Time Alerts**         | Notifiche predittive su offerte lampo, cambi di prezzo e disponibilità case                                          | Viaggiatori sempre aggiornati e pronti a prenotare |
-| **Interactive Demo UI**      | Frontend in Angular con mappa interattiva, drag\&drop per modificare itinerari e preview dello scambio case          | Esperienza wow per stakeholder                     |
+| Feature                      | Descrizione                                                                                                                      | Valore Creativo                                    |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| **Cultural Data Integrator** | Bot RPA che estrae informazioni (musei, orari, prezzi) da siti ufficiali (es. Visit Berlin, nostracultura.it)                    | Affidabilità e completezza delle informazioni      |
+| **Itinerary Auto-Builder**   | Microservizio AI che genera itinerari basati su preferenze, durata viaggio e budget; fallback a GPT per suggerimenti generali    | Personalizzazione immediata                        |
+| **Ticket Price Estimator**   | Modulo AI/RPA che raccoglie tariffe biglietti da fonti ufficiali e stima il costo totale del viaggio                             | Preventivo realistico e aggiornato                 |
+| **Dynamic Price Aggregator** | RPA che scansiona portali di voli, hotel e case in scambio, aggrega tariffe e valuta opportunità più vantaggiose                 | Risparmio tempo e denaro                           |
+| **Home Exchange Matcher**    | AI service (clustering + NLP) che analizza preferenze host/viaggiatori e suggerisce scambi di alloggio ottimali                  | Ottimizzazionefferta e soddisfazione utenti        |
+| **Travel Leaderboard**       | Dashboard gamificata con badge ("Explorer Pro", "Host Ambassador"), punti e classifiche basate su attività completate e feedback | Engagement e fidelizzazione                        |
+| **Real-Time Alerts**         | Notifiche predittive su offerte lampo, cambi di prezzo e disponibilità case                                                      | Viaggiatori sempre aggiornati e pronti a prenotare |
+| **Interactive Demo UI**      | Frontend Angular con mappa interattiva, drag\&drop itinerari e preview scambio case, pannelli per confrontare prezzi             | Esperienza wow per stakeholder                     |
 
 ## 2. Architettura PoC
 
-1. **Backend**: FastAPI + Python (moduli ML: scikit-learn per matching, Pandas)
-2. **Data Store**: PostgreSQL (profilo utente, itinerari, log scambio) + Redis (cache delle offerte)
-3. **AI Service**: microservizio per matching case e generazione itinerari basato su KMeans e NLP su Flink
-4. **RPA Module**: Bot containerizzati che estraggono dati da portali di viaggio con Puppeteer + OCR leggeri
-5. **Frontend**: Angular + Tailwind (Itinerary Builder, Exchange Dashboard)
-6. **Orchestrazione**: Kubernetes minimal (API, AI, RPA agent, Redis)
-7. **CI/CD**: GitHub Actions (pipelines su dev namespace con deploy automatico)
+1. **Backend**: FastAPI + Python (scikit-learn, Pandas, transformers)
+2. **Data Store**: PostgreSQL (utenti, itinerari, case, log) + Redis (cache offerte e previsioni)
+3. **AI Service**: microservizio per:
+
+   * Generazione itinerari (NLP + GPT fallback)
+   * Matching case (KMeans + similarity NLP)
+   * Stima costi biglietti (regressione)
+4. **RPA Module**: Bot containerizzati (Puppeteer + OCR leggeri) per scraping di:
+
+   * Siti culturali ufficiali (Visit City)
+   * Portali di prenotazione e case in scambio
+5. **Frontend**: Angular + Tailwind (Itinerary Builder, Exchange Dashboard, Leaderboard)
+6. **Orchestrazione**: Kubernetes minimo (API, AI, RPA, Redis)
+7. **CI/CD**: GitHub Actions (pipeline build, test, deploy su ambiente dev)
 
 ## 3. Timeline & Deliverables
 
-| Settimana | Attività                                                                                              | Deliverable                              |
-| --------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| 1         | Setup ambiente, DB schema (utenti, case, itinerari), stub API RPA e AI                                | Repo iniziale, schema DB, API stub       |
-| 2         | Itinerary Auto-Builder (raccolta preferenze + generazione con NLP)                                    | Microservizio generatore itinerari       |
-| 3         | Dynamic Price Aggregator + Home Exchange Matcher (training clustering + matching API)                 | Servizi di scraping e matching operativi |
-| 4         | Gamification Engine + Demo UI (Leaderboard, mappa interattiva) + Test end-to-end + Documentazione PoC | UI demo interattiva, report PoC          |
+| Settimana | Attività                                                                                                                      | Deliverable                             |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| 1         | Setup ambiente, DB schema (utenti, case, itinerari, prezzi musei), stub API RPA e AI                                          | Repo iniziale, schema DB, API stub      |
+| 2         | **Cultural Data Integrator**: sviluppo bot RPA per scraping siti musei + **Itinerary Auto-Builder** con fallback GPT          | Servizio itinerari + bot scraping musei |
+| 3         | **Ticket Price Estimator**: raccolta tariffe ufficiali + modello stima costo totale; **Home Exchange Matcher**                | Servizio stima prezzi + matching case   |
+| 4         | Gamification Engine + **Interactive Demo UI** (Leaderboard, mappa, comparatore prezzi) + Test end-to-end + Documentazione PoC | UI demo completa, report PoC            |
 
 ## 4. Metriche di Successo
 
-* **Soddisfazione Itinerario** ≥ 80% (valutazione utenti)
-* **Matching Accuracy** ≥ 75% (precisione suggerimenti scambio)
-* **Tasso di engagement** Gamification ≥ 60% degli utenti attivi
-* **Tempo medio di generazione itinerario** < 10s
+* **Accuratezza dati musei** ≥ 90% (confronto manuale)
+* **Soddisfazione Itinerario** ≥ 80% (rating utenti)
+* **Precisione stima prezzo** MAPE ≤ 15%
+* **Matching Accuracy** ≥ 75%
+* **Engagement Gamification** ≥ 60% utenti attivi
+* **Tempo medio di generazione** itinerario < 10s
 
 ---
 
-*TravelForge Spark* dimostra come una piattaforma di travel tech possa utilizzare IPA avanzata per offrire ai viaggiatori e agli host un’esperienza personalizzata, proattiva e coinvolgente.
-
-
+*TravelForge Spark* dimostra come un’app di travel tech possa offrire itinerari completi, preventivi di spesa realistici e scambio case ottimale grazie a un mix di RPA, AI e un’interfaccia coinvolgente.
 
 
 ## OLD MVP: Knowledge Graph Ingestion from Polito Cryptography Course Notes
