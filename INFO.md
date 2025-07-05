@@ -4,7 +4,7 @@
 
 ---
 
-## Elenco sintetico delle Features
+## 1. Elenco sintetico delle Features
 
 * Tourism Data Integrator
 * Itinerary Auto-Builder
@@ -17,7 +17,7 @@
 * Smart Alerts & Links
 * Interactive Demo UI
 
-## Ambito e Funzionalità
+## 2. Ambito e Funzionalità
 
 | Feature                       | Descrizione                                                                                                                                          | Valore Creativo                         |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
@@ -52,7 +52,7 @@
 7. **CI/CD**: GitHub Actions (build, lint, test, deploy su dev e staging)
 8. **Monitoring**: Prometheus & Grafana (metriche API e RPA)
 
-## Functional Prototype: Backend Itinerary Service
+## 3. Functional Prototype: Backend Itinerary Service
 
 **Obiettivo**: Implementare in Python un endpoint FastAPI che, dati in input `city_country`, `duration_days`, `season_or_dates`, restituisca:
 
@@ -129,7 +129,7 @@
 
 ---
 
-## Backend Timeline & Deliverables (7 settimane)
+### 3.3 Backend Deliverables
 
 1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
 2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
@@ -151,7 +151,7 @@
 
 
 
-## Timeline & Deliverables (7 settimane)
+## 4. Timeline & Deliverables (7 settimane)
 
 | Settimana | Attività                                                                                                                                    | Deliverable                            |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
@@ -163,7 +163,7 @@
 | 6         | **Car Sharing & Accommodation Advisor**: RPA price aggregator car sharing; AI consigli zone e periodi; Home Exchange Matcher                | Mobility dashboard + matching service  |
 | 7         | **Gamification Engine** + **Interactive Demo UI**: leaderboard, notifiche, link diretti, test end-to-end, documentazione, presentazione PoC | UI completa, report PoC, demo live     |
                              |
-## 4. Metriche di Successo
+## 5. Metriche di Successo
 
 * **Fluidità UX**: <2 click per ottenere itinerario completo
 * **Accuratezza dati culturali** ≥ 95%
