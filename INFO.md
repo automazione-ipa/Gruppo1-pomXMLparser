@@ -330,5 +330,116 @@
   * Risposte grounding su contenuti reali
   * Integrazione con knowledge base da scraping/API
 
+---
+
+Perfetto, aggiorniamo il documento focalizzandoci sul **requisito strategico di costruire una Knowledge Base (KB)** per aumentare **precisione, affidabilità e ricchezza delle risposte**, soprattutto per:
+
+---
+
+### 🎯 Obiettivi della KB
+
+1. **Precisione prezzi** (ingressi musei, attrazioni, trasporti locali)
+2. **Ricchezza culturale e operativa** (cosa fare, orari, link ufficiali, eventi)
+
+---
+
+### 🔧 Strategia Tecnologica per la KB
+
+| Aspetto            | Scelta Tecnologica                                                 | Motivazione                                                       |
+| ------------------ | ------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| **Storage base**   | Vector DB (es. Weaviate, Qdrant, Pinecone)                         | Permette embedding, similar search, domande e retrieval semantico |
+| **Fallback**       | PostgreSQL (relazionale, dati strutturati: orari, prezzi certi)    | Per avere certezza su prezzi fissi/valori tabellari               |
+| **Indicizzazione** | Embedding con modelli tipo `all-MiniLM` o `text-embedding-3-small` | Ottimale per semantica breve, costi bassi                         |
+
+---
+
+### 📘 Contenuti da Inserire nella KB
+
+| Categoria         | Fonte                                        | Metodo Raccoglimento               | Frequenza Update |
+| ----------------- | -------------------------------------------- | ---------------------------------- | ---------------- |
+| Musei & Monumenti | Portali ufficiali città, NostraCultura       | Scraping via RPA (Puppeteer + OCR) | 1/settimana      |
+| Prezzi ingressi   | API ufficiali o scraping (es. Teide, Louvre) | RPA + validazione su portali       | 1/settimana      |
+| Eventi temporanei | Eventbrite, Meetup, City Calendar            | API quando disponibili, o scraping | 1-2/giorni       |
+| Attività outdoor  | Blog, city guides, Tripadvisor               | NLP + estrazione da testi HTML     | 1-2/settimane    |
+| Recensioni / Tips | Google Maps, blog viaggi                     | Embedding + NLP                    | continuo (delta) |
+
+---
+
+### 🧠 Funzionalità Supportate dalla KB
+
+| Use Case                                   | Meccanismo                                                 |
+| ------------------------------------------ | ---------------------------------------------------------- |
+| "Quanto costa entrare al Museo Egizio?"    | Query semantica + fallback su prezzo da tabella verificata |
+| "Cosa vedere a Berlino in 3 giorni?"       | Retrieval attività + matching per durata e priorità        |
+| "Ci sono eventi jazz a Lisbona in agosto?" | Ricerche event-centriche con filtro semantico + temporale  |
+| "Quali attrazioni sono aperte di sera?"    | KB orari + filtro semantico su fascia oraria               |
+
+---
+
+### 🧩 Integrazione con GPT
+
+* **Retrieval-augmented generation (RAG)**: il sistema recupera chunk semantici rilevanti da vector DB → questi vengono passati nel `context` al GPT (es. GPT-4o mini) per generare la risposta.
+* **Function Calling con fallback**: se il contenuto non è in KB, GPT può chiamare una `function` per attivare scraping / API provider.
+
+---
+
+### 🔄 Pipeline di Popolamento KB
+
+1. **Scraper agents**:
+
+   * Navigano portali di città / cultura
+   * Estraggono nome, descrizione, orari, prezzo, link ufficiale
+   * Normalizzazione dati in formato JSON
+
+2. **NLP agents**:
+
+   * Estraggono keyword da articoli/blog
+   * Embedding + tagging semantico
+   * Identificazione eventi o attività emergenti
+
+3. **Scheduler & Validator**:
+
+   * Cron settimanale per musei & attrazioni
+   * Daily fetch per eventi
+   * Verifica automatica link e coerenza prezzi
+
+---
+
+### 📂 Struttura Dati KB (semplificata)
+
+```json
+{
+  "type": "museo",
+  "title": "Museo Egizio di Torino",
+  "location": "Torino, Italia",
+  "description": "Uno dei più antichi musei egizi del mondo...",
+  "category": ["cultura", "storico"],
+  "tags": ["egizio", "archeologia", "storico"],
+  "price": 18,
+  "opening_hours": {
+    "lun": "09:00-18:30",
+    "mar": "09:00-18:30",
+    ...
+  },
+  "official_link": "https://museoegizio.it",
+  "embedding": [/* vector */]
+}
+```
+
+---
+
+### 🚀 Prossimi Passi Operativi
+
+1. **Selezione 10 città target** (es. Roma, Firenze, Parigi, Barcellona, Berlino, Praga…)
+2. **Definizione schema JSON di raccolta**
+3. **Creazione agenti scraping RPA + validazione**
+4. **Setup del primo Vector DB e embedding pipeline**
+5. **Demo di RAG con GPT 4o mini su 2-3 città**
+
+---
 
 *TravelForge Spark* offre una user journey senza interruzioni: dall’input di meta e giorni a un’esperienza ricca di contenuti, link ufficiali, mappe e consigli su misura, sfruttando RPA, AI e un’interfaccia immersiva.
+
+Posso ora aggiornare il documento includendo questa sezione come parte della descrizione delle automazioni intelligenti e della KB. Vuoi che proceda?
+
+
