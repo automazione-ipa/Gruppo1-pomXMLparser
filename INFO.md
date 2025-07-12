@@ -426,6 +426,162 @@ Perfetto, aggiorniamo il documento focalizzandoci sul **requisito strategico di 
 }
 ```
 
+
+
+### 🎯 Spiegazione campi chiave
+
+| Campo       | Scopo                                                           |
+| ----------- | --------------------------------------------------------------- |
+| `content`   | Testo semantico da embeddare → usato per similar search         |
+| `embedding` | Vettore numerico calcolato con modello embedding                |
+| `metadata`  | Filtraggio / faceting (es. per città, categoria, prezzo, orari) |
+| `id`        | Utile per gestione update o deduplicazione                      |
+
+---
+
+### 🧠 Come funziona nel retrieval
+
+* **Query dell’utente** viene trasformata in embedding → `similarity search` nel Vector DB su `content`.
+* **Filtri secondari** (es. `location == Torino`, `price < 20`) applicati su `metadata`.
+* Risultati → forniti a GPT via `context` nel RAG.
+
+---
+
+### 🔁 Se usi DB ibrido (Vector + Relazionale)
+
+* Vector DB → `descrizioni`, `esperienze`, `cosa fare`, `raccomandazioni`
+* Relazionale (PostgreSQL) → `prezzi`, `orari`, `URL`, dati con **precisione numerica o regole chiare**
+
+---
+
+### ✅ Best practices
+
+* Normalizza `content` per essere **autosufficiente** anche fuori dal JSON (es. nei chunk RAG)
+* Aggiungi un campo `updated_at` se prevedi refresh periodici
+* Non mettere l’`embedding` se viene calcolato in fase di inserimento (alcuni DB lo supportano)
+
+---
+
+Se vuoi posso fornirti uno **script di ingestione** (es. Python con Qdrant o Weaviate SDK) o un **template di schema** per iniziare. Vuoi procedere in quella direzione?
+
+---
+
+
+Ottima osservazione — sì, **il filtraggio temporale è possibile** in molte implementazioni di Vector DB **grazie ai campi di metadata**. Ti spiego meglio.
+
+---
+
+### 🕒 **Cos’è il filtraggio temporale**
+
+Nel contesto di una **Knowledge Base turistica** e di un **vector DB**, il *filtraggio temporale* significa **limitare i risultati semanticamente simili** a quelli che:
+
+* si **svolgono in una certa data/finestra temporale**
+* sono **validi solo in certi periodi**
+* hanno **scadenze**, **periodi di apertura stagionali**, ecc.
+
+---
+
+### 📦 Esempi pratici
+
+#### 1. **Eventi temporanei**
+
+```json
+"metadata": {
+  "start_date": "2025-08-02",
+  "end_date": "2025-08-04",
+  "location": "Lisbona",
+  ...
+}
+```
+
+➡️ Query: *"Ci sono eventi jazz a Lisbona in agosto?"*
+
+→ Il sistema applica filtro semantico **+**
+
+```sql
+WHERE location = 'Lisbona' AND start_date <= '2025-08-31' AND end_date >= '2025-08-01'
+```
+
+---
+
+#### 2. **Attrazioni stagionali**
+
+```json
+"metadata": {
+  "seasonal_opening": {
+    "from": "2025-05-01",
+    "to": "2025-09-30"
+  },
+  ...
+}
+```
+
+➡️ Query: *"Cosa posso fare all’aperto a Ginevra a novembre?"*
+
+→ L’AI filtra solo ciò che è **aperto a novembre**, anche se semanticamente simile.
+
+---
+
+#### 3. **Validità temporanea di un prezzo o offerta**
+
+```json
+"metadata": {
+  "price": 12,
+  "price_valid_until": "2025-08-31"
+}
+```
+
+→ Il sistema può evitare di suggerire un prezzo **scaduto**, anche se il contenuto è semanticamente rilevante.
+
+---
+
+### ✅ Come funziona il filtraggio nei Vector DB
+
+I principali DB vettoriali come **Qdrant**, **Weaviate**, **Pinecone** supportano:
+
+* **Filtri numerici e temporali** su `metadata`
+* Query tipo:
+
+  ```python
+  filter={
+    "must": [
+      {"key": "location", "match": {"value": "Lisbona"}},
+      {"key": "start_date", "lte": "2025-08-31"},
+      {"key": "end_date", "gte": "2025-08-01"}
+    ]
+  }
+  ```
+* L’embedding serve per *trovare il concetto*, il filtro *limita per tempo, spazio, tipo*
+
+---
+
+### 🧩 RAG + Filtraggio temporale
+
+Nel contesto **RAG + GPT**:
+
+1. Query utente → embedding + parsing di entità temporali (`in agosto`, `di sera`, `weekend`)
+2. Filtraggio KB per date
+3. Passaggio solo dei chunk *attuali o futuri*
+4. Risposta generata con contesto aggiornato
+
+---
+
+### 🛠 Suggerimenti per implementazione
+
+* Usa sempre formato ISO (`YYYY-MM-DD`)
+* Inserisci sia `start_date` sia `end_date` per eventi
+* Per aperture ricorrenti (es. ogni estate), puoi anche usare:
+
+  ```json
+  "opening_season": ["giugno", "luglio", "agosto"]
+  ```
+
+  o un campo custom che poi mappi dinamicamente
+
+---
+
+
+
 ---
 
 ### 🚀 Prossimi Passi Operativi
@@ -441,5 +597,6 @@ Perfetto, aggiorniamo il documento focalizzandoci sul **requisito strategico di 
 *TravelForge Spark* offre una user journey senza interruzioni: dall’input di meta e giorni a un’esperienza ricca di contenuti, link ufficiali, mappe e consigli su misura, sfruttando RPA, AI e un’interfaccia immersiva.
 
 Posso ora aggiornare il documento includendo questa sezione come parte della descrizione delle automazioni intelligenti e della KB. Vuoi che proceda?
+Posso aiutarti a definire un **modello JSON flessibile con campi temporali** o un **parser date-aware per le query**. Vuoi che ti generi una base?
 
 
