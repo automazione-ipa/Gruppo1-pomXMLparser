@@ -21,7 +21,6 @@ Ad esempio, posso implementare un servizio di scraping per individuare le offert
 
 Valutare anche approccio tramite API per alcune infoe salvataggio in mongo / postgres. 
 
-
 ## 2. CHATBOT (per costruire l'itinerario)
 Pipeline costruzione KB [Knowledge Base/Indice] per ricerche semantiche.
 
@@ -161,3 +160,162 @@ Automatismo (semi) di creazione KB anche grazie a interazione utente.
 ## 3. PRENOTAZIONI AUTOMATICHE
 
 Completo il processo di automazione con acquisto biglietti/prenotazioni, previo consenso utente. 
+
+
+---
+
+
+# TravelForge Spark – Documentazione API & Agenti Intelligenti
+
+## 6. Descrizione delle API REST Necessarie
+
+### 6.1 Autenticazione e Gestione Utenti
+
+| Metodo | Endpoint              | Descrizione                           |
+| ------ | --------------------- | ------------------------------------- |
+| POST   | /auth/register        | Registrazione nuovo utente            |
+| POST   | /auth/login           | Login utente                          |
+| GET    | /users/me             | Profilo dell'utente autenticato       |
+| PUT    | /users/me/preferences | Aggiorna preferenze di viaggio utente |
+
+---
+
+### 6.2 Generazione Itinerario
+
+| Metodo | Endpoint            | Descrizione                                                  |
+| ------ | ------------------- | ------------------------------------------------------------ |
+| POST   | /generate-itinerary | Genera un itinerario AI-driven per una destinazione e durata |
+| GET    | /itineraries/{id}   | Recupera un itinerario specifico                             |
+| GET    | /itineraries/user   | Recupera tutti gli itinerari dell’utente                     |
+
+---
+
+### 6.3 Modulo Prezzi e Prenotazioni
+
+| Metodo | Endpoint                    | Descrizione                                  |
+| ------ | --------------------------- | -------------------------------------------- |
+| POST   | /pricing/estimate           | Stima costo attività, musei, trasporti, etc. |
+| GET    | /pricing/history/{location} | Storico prezzi attrazioni e trasporti        |
+
+---
+
+### 6.4 Modulo Eventi e Nightlife
+
+| Metodo | Endpoint                | Descrizione                                                  |
+| ------ | ----------------------- | ------------------------------------------------------------ |
+| GET    | /events/{city}          | Recupera eventi in corso filtrati per data, categoria, gusti |
+| GET    | /events/recommendations | Suggerisce eventi in base a profilo utente                   |
+
+---
+
+### 6.5 Mobilità e Alloggi
+
+| Metodo | Endpoint              | Descrizione                                        |
+| ------ | --------------------- | -------------------------------------------------- |
+| GET    | /mobility/options     | Tariffe e disponibilità car/bike/scooter sharing   |
+| GET    | /accommodation/advice | Zone consigliate per alloggio in base a preferenze |
+| POST   | /home-exchange/match  | Matching per scambio casa                          |
+
+---
+
+### 6.6 Gamification e Notifiche
+
+| Metodo | Endpoint           | Descrizione                                       |
+| ------ | ------------------ | ------------------------------------------------- |
+| GET    | /leaderboard       | Classifica utenti per badge, punteggio e attività |
+| GET    | /alerts/{user\_id} | Notifiche smart su offerte, eventi, cambi prezzi  |
+
+---
+
+### 6.7 Immagini e Contenuti
+
+| Metodo | Endpoint              | Descrizione                                |
+| ------ | --------------------- | ------------------------------------------ |
+| GET    | /images/search        | Cerca immagini per destinazione/tema       |
+| GET    | /content/links/{type} | Link utili per prenotazione e informazioni |
+
+---
+
+## 7. Descrizione Funzionale Agenti Intelligenti e Automazioni
+
+### 7.1 Itinerary Auto-Builder Agent
+
+* **Input**: destinazione, durata, stagione, preferenze
+* **Tecnologia**: GPT-4o (o mini) + pipeline NLP custom
+* **Output**: schema itinerario giornaliero, con link ufficiali e timeframe
+* **Funzioni**:
+
+  * Generazione schema base
+  * Traduzione e localizzazione contenuti
+  * Inclusione tappe AI-ranked
+
+### 7.2 Tourism Data Integrator (RPA Agent)
+
+* **Input**: città
+* **Tecnologia**: Puppeteer + OCR + cron scheduler
+* **Output**: dataset attrazioni, musei, orari, prezzi aggiornati
+* **Funzioni**:
+
+  * Scraping portali ufficiali (Visit City, Nostracultura)
+  * Parsing HTML, PDF e contenuti dinamici
+  * Normalizzazione dati e validazione
+
+### 7.3 Ticket Price Estimator Agent
+
+* **Input**: elenco attività/attrazioni, date
+* **Tecnologia**: RPA scraping + regressione costi
+* **Output**: tabella prezzi e stima costo viaggio
+* **Funzioni**:
+
+  * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
+  * Stima costi mancanti tramite modello AI (MAPE ≤ 12%)
+
+### 7.4 Events & Nightlife Agent
+
+* **Input**: città, data, interessi utente
+* **Tecnologia**: scraping + embedding + filtro AI
+* **Output**: eventi rilevanti con info e link
+* **Funzioni**:
+
+  * Parsing di Eventbrite, Meetup, siti locali
+  * Raccomandazione semantica eventi simili
+
+### 7.5 Mobility Aggregator Agent
+
+* **Input**: città, data
+* **Tecnologia**: API calls + scraping
+* **Output**: tabella con tariffe car/bike/scooter sharing
+* **Funzioni**:
+
+  * Comparazione multi-provider (ShareNow, Lime, ecc.)
+  * Previsione disponibilità per fascia oraria
+
+### 7.6 Home Exchange Matcher Agent
+
+* **Input**: profilo host e viaggiatore
+* **Tecnologia**: Similarity Matching (embeddings + filtri logici)
+* **Output**: coppie compatibili per scambio
+* **Funzioni**:
+
+  * Matching preferenze / date / tipo alloggio
+  * Classificazione qualità match (score > soglia)
+
+### 7.7 Smart Notification Engine
+
+* **Input**: profilo utente, itinerario salvato, dati prezzo/eventi
+* **Tecnologia**: Rule-based + AI thresholding
+* **Output**: alert push/email su variazioni rilevanti
+* **Funzioni**:
+
+  * Trigger su soglie prezzo
+  * Notifiche eventi imminenti o nuovi
+
+### 7.8 TravelGPT Chat Agent
+
+* **Input**: domanda generica o contestuale
+* **Tecnologia**: GPT-4o + RAG (opzionale con Vector DB)
+* **Output**: risposte precise su viaggio, attività, cultura locale
+* **Funzioni**:
+
+  * Risposte grounding su contenuti reali
+  * Integrazione con knowledge base da scraping/API
