@@ -581,6 +581,136 @@ Nel contesto **RAG + GPT**:
 ---
 
 
+Ottima domanda. La risposta è: **dipende dall'architettura del tuo sistema**, ma **sì, in un sistema RAG controllato, sei tu a definire le query di ricerca semantica e i filtri (es. temporali)** — **non GPT**.
+
+Ti spiego tutto chiaramente 👇
+
+---
+
+### 🎯 1. **Chi definisce le query nel sistema RAG?**
+
+In un sistema **Retrieval-Augmented Generation (RAG)**:
+
+* GPT **non cerca direttamente nella KB o nel Vector DB**
+* È il **tuo orchestratore** (backend, agente, o middle layer) a:
+
+  1. Ricevere la domanda dell’utente
+  2. **Estrarre intenti, entità, date, categorie**
+  3. **Costruire la query vettoriale + filtri**
+  4. Eseguire la ricerca nel Vector DB
+  5. Passare i risultati a GPT come contesto
+
+✅ **Quindi sì, sei tu a definire come formulare le query.**
+
+---
+
+### 🧠 2. Come si costruisce una **query efficace**?
+
+Una query al vector DB si compone di:
+
+1. **Embedding della domanda**: generato con modello tipo `text-embedding-3-small`
+2. **Filtri nei metadata** (temporali, geografici, per categoria)
+3. **Limite risultati**, soglia di similarità, ecc.
+
+#### ✅ Esempio (Qdrant)
+
+```python
+query_vector = embed("Eventi jazz a Lisbona in agosto")
+
+results = qdrant_client.search(
+    collection_name="turismo",
+    query_vector=query_vector,
+    limit=5,
+    filter={
+        "must": [
+            {"key": "location", "match": {"value": "Lisbona"}},
+            {"key": "tags", "match": {"value": "jazz"}},
+            {"key": "start_date", "lte": "2025-08-31"},
+            {"key": "end_date", "gte": "2025-08-01"}
+        ]
+    }
+)
+```
+
+---
+
+### 🔎 3. Come estrarre automaticamente i filtri dalla domanda?
+
+Puoi usare:
+
+* **Named Entity Recognition (NER)**: per città, date, attività
+* **Regex + parser temporali** (tipo `dateparser` o `Duckling`)
+* **Intent detection + mapping semantico** (es. "in agosto" → range date)
+
+> 🔧 Oppure usare GPT stesso (in function calling) per estrarre `intent`, `location`, `periodo`, `tipo evento`, ecc.
+
+#### Esempio:
+
+Prompt:
+
+> "Ci sono eventi jazz a Lisbona in agosto?"
+
+Output GPT (function-callable):
+
+```json
+{
+  "query_text": "eventi jazz a Lisbona",
+  "filters": {
+    "location": "Lisbona",
+    "tags": ["jazz"],
+    "date_range": {
+      "from": "2025-08-01",
+      "to": "2025-08-31"
+    }
+  }
+}
+```
+
+---
+
+### 🧩 4. Quando GPT può *chiamare* una query?
+
+Se usi **function calling**, GPT può:
+
+* **Invocare una funzione "search\_kb"** con parametri come testo + filtri
+* Tu gestisci l'esecuzione vera e propria nel vector DB
+
+Esempio di function definita:
+
+```json
+{
+  "name": "search_kb",
+  "description": "Cerca nella knowledge base contenuti turistici",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": { "type": "string" },
+      "location": { "type": "string" },
+      "start_date": { "type": "string", "format": "date" },
+      "end_date": { "type": "string", "format": "date" }
+    },
+    "required": ["query"]
+  }
+}
+```
+
+---
+
+### ✅ In sintesi: cosa devi definire tu
+
+| Cosa                            | Va definito da te? | Come                                              |
+| ------------------------------- | ------------------ | ------------------------------------------------- |
+| Embedding della query           | ✅                  | Usa modello (es. OpenAI `text-embedding-3-small`) |
+| Filtri semantici/temporali      | ✅                  | Parsati da NER, regex, o GPT                      |
+| Costruzione query Vector DB     | ✅                  | Via SDK o API (Qdrant, Pinecone, Weaviate...)     |
+| Threshold / score di similarità | ✅                  | In base ai test: es. `score > 0.75`               |
+| Chiamata GPT con i risultati    | ✅                  | I chunk vanno passati nel `context` per RAG       |
+
+---
+
+Se vuoi, posso generarti uno **scheletro Python completo per una query filtrata Qdrant** oppure un **flow tipo per orchestrazione con GPT + Vector Search + RAG**. Vuoi uno di questi esempi concreti?
+
+
 
 ---
 
@@ -593,6 +723,8 @@ Nel contesto **RAG + GPT**:
 5. **Demo di RAG con GPT 4o mini su 2-3 città**
 
 ---
+
+
 
 *TravelForge Spark* offre una user journey senza interruzioni: dall’input di meta e giorni a un’esperienza ricca di contenuti, link ufficiali, mappe e consigli su misura, sfruttando RPA, AI e un’interfaccia immersiva.
 
