@@ -1042,6 +1042,172 @@ Puoi anche definire **una funzione chiamabile da Gemini** come:
 
 Posso fornirti entrambi. Vuoi che prosegua?
 
+---
+
+Perfetto. Allora ti propongo un **esempio realistico e implementabile di pipeline RAG** per generare **un piano di viaggio completo**, a partire da una query tipo:
+
+> **"Organizza un viaggio per due persone a Berlino, dal 26/07 al 30/07. Partenza da Torino."**
+
+---
+
+## ✅ **Obiettivo**
+
+Restituire un itinerario completo (in Markdown), usando:
+
+* 📥 **Query utente naturale** → parsing semantico
+* 🔎 **RAG** con **Google Embeddings** + **Vertex AI Vector DB**
+* 📚 **Gemini Pro** per generazione testo
+* 🔄 **Function calling** (per prezzi o disponibilità live da PostgreSQL/API)
+
+---
+
+## 🧠 STEP 1 – Parsing Semantico della Richiesta
+
+Input:
+
+```python
+user_query = "Organizza un viaggio per due persone a Berlino, dal 26/07 al 30/07. Partenza da Torino."
+```
+
+Estrazione (via NLP o Gemini):
+
+```json
+{
+  "city_country": "Berlino, Germania",
+  "from_city": "Torino",
+  "duration_days": 4,
+  "season_or_dates": {
+    "from": "2025-07-26",
+    "to": "2025-07-30"
+  },
+  "num_people": 2
+}
+```
+
+---
+
+## 🧩 STEP 2 – Recupero chunk via RAG da **Vertex AI Vector Search**
+
+### Esempio di embedding + query
+
+```python
+embedding = gecko_model.get_embeddings([user_query])[0].values
+
+query = {
+  "datapoint": {
+    "feature_vector": embedding,
+    "restricts": [
+      {"namespace": "location", "allow_list": ["Berlino"]},
+      {"namespace": "type", "allow_list": ["attivita", "museo", "evento"]}
+    ]
+  },
+  "neighbor_count": 20
+}
+
+neighbors = vector_client.find_neighbors(...).responses[0].nearest_neighbors
+```
+
+---
+
+## 🔎 STEP 3 – Recupero prezzi e disponibilità (PostgreSQL)
+
+**Funzione richiamata da Gemini (function calling):**
+
+```json
+{
+  "name": "get_activity_prices",
+  "parameters": {
+    "activities": ["Pergamon Museum", "Berlin Welcome Card", "Zoo Berlin"],
+    "date_range": ["2025-07-26", "2025-07-30"]
+  }
+}
+```
+
+Backend:
+
+```sql
+SELECT name, price, official_link
+FROM activity_prices
+WHERE name = ANY(%s) AND available = TRUE;
+```
+
+---
+
+## 🧠 STEP 4 – Prompt per **Gemini Pro** (con RAG context)
+
+### Input a Gemini:
+
+```text
+Utente: "Organizza un viaggio per due persone a Berlino, dal 26/07 al 30/07. Partenza da Torino."
+
+📌 CONTENUTI UTILI:
+- [chunk attività Berlino da Vector DB]
+- [prezzi attività da PostgreSQL]
+
+ISTRUZIONI:
+- Genera itinerario in formato Markdown
+- Suddividi per giorni (basato su durata)
+- Includi se possibile link ufficiali e prezzi
+- Concludi con sezione “Preventivo” e “Prenotazioni”
+```
+
+---
+
+## ✅ Output simulato (parziale)
+
+```markdown
+# Itinerario per Berlino (4 giorni, 26–30 luglio 2025)
+
+## 📸 Galleria Immagini
+![Brandenburger Tor](link)
+![Museo Pergamon](link)
+
+## 🗓️ Itinerario Giornaliero
+
+| Giorno | Attività                                   | Link                                                 |
+|--------|--------------------------------------------|------------------------------------------------------|
+| 1      | Arrivo, passeggiata al Tiergarten          | https://www.visitberlin.de                          |
+| 2      | Visita Pergamon Museum                     | https://www.smb.museum/museen-einrichtungen/pergamonmuseum |
+| 3      | Zoo di Berlino + Berlin Welcome Card       | https://www.zoo-berlin.de + https://berlin-welcome-card.de |
+| 4      | Gita sul fiume Sprea + rientro             | https://berlin.de/cruise
+
+## 💰 Preventivo Costi
+
+| Voce                          | Prezzo (€)   |
+|-------------------------------|--------------|
+| Pergamon Museum               | 15 / persona |
+| Zoo Berlin                    | 20 / persona |
+| Welcome Card (3gg)           | 38 / persona |
+| Cibo, trasporti, extra        | 150          |
+| **Totale stimato (2 persone)**| **438**      |
+
+## 🔗 Prenotazioni utili
+
+- https://www.smb.museum
+- https://zoo-berlin.de
+- https://berlin-welcome-card.de
+```
+
+---
+
+## 🔁 Quante chiamate serve?
+
+| Fase                  | Tipo chiamata            | Numero stimato |
+| --------------------- | ------------------------ | -------------- |
+| Embedding query       | 1x Google `gecko`        | 1              |
+| Vector Search         | 1x Vertex AI Vector DB   | 1              |
+| Fallback prezzi/orari | 1x chiamata a PostgreSQL | 1 (batch)      |
+| Generazione testo     | 1x Gemini Pro            | 1              |
+
+**Totale: \~4 chiamate** per itinerario personalizzato completo.
+
+---
+
+## 🛠 Vuoi il codice integrato (es. Python + Vertex AI SDK) in un notebook Colab / FastAPI / Cloud Function?
+
+Oppure posso fornirti lo **schema JSON dei documenti da caricare** nel Vector DB e nel fallback PostgreSQL. Fammi sapere!
+
+
 
 ---
 
