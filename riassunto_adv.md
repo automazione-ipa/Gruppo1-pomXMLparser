@@ -1,10 +1,10 @@
 # Requisiti di Automazione
 
 1. INTEGRAZIONE VIAGGI/MEZZI/PREZZI
--> scraping/API
+- scraping/API
 
 2. CHATBOT (per costruire l'itinerario)
--> RAG Ingestion / Generation
+- RAG Ingestion / Generation
 
 3. PRENOTAZIONI AUTOMATICHE
 - in definizione
