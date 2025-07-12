@@ -169,6 +169,8 @@ Completo il processo di automazione con acquisto biglietti/prenotazioni, previo 
 
 ## 6. Descrizione delle API REST Necessarie
 
+Definita una prima bozza per la definizione di API REST, da confrontare con il team dedicato.
+
 ### 6.1 Autenticazione e Gestione Utenti
 
 | Metodo | Endpoint              | Descrizione                           |
@@ -237,6 +239,9 @@ Completo il processo di automazione con acquisto biglietti/prenotazioni, previo 
 ---
 
 ## 7. Descrizione Funzionale Agenti Intelligenti e Automazioni
+
+Sono stati anche definiti alcuni agenti e automazioni da creare.
+Bisogna capire quali sono necessari in relazione alle user stories, poi come implementarli. 
 
 ### 7.1 Itinerary Auto-Builder Agent
 
