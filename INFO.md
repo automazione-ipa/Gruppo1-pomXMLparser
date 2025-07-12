@@ -710,6 +710,159 @@ Esempio di function definita:
 
 Se vuoi, posso generarti uno **scheletro Python completo per una query filtrata Qdrant** oppure un **flow tipo per orchestrazione con GPT + Vector Search + RAG**. Vuoi uno di questi esempi concreti?
 
+---
+
+Perfetto. Ti rispondo in due parti:
+
+---
+
+## 🧠 1. **Esempi di Query Semantiche (con o senza dati strutturati)**
+
+### ✅ A. Query semantica classica — contenuti descrittivi
+
+Usata per: itinerari, contenuti culturali, suggerimenti, attività generiche.
+
+#### 🧾 Esempio 1
+
+> “Cosa posso visitare a Berlino con bambini?”
+
+🔍 Costruzione:
+
+* Embedding di `"cosa visitare a Berlino con bambini"`
+* **Filtri metadata**:
+
+  ```json
+  {
+    "location": "Berlino",
+    "tags": ["bambini", "famiglia"]
+  }
+  ```
+
+#### 🧾 Esempio 2
+
+> “Consigli su musei archeologici a Roma”
+
+* Embedding: `"musei archeologici Roma"`
+* Metadata:
+
+  ```json
+  {
+    "location": "Roma",
+    "category": ["museo"],
+    "tags": ["archeologia"]
+  }
+  ```
+
+---
+
+### ✅ B. Query semantica + fallback su **dati strutturati** (prezzi, orari, aperture)
+
+Usata per: risposte certe, come prezzi, giorni di apertura, orari.
+
+#### 🧾 Esempio 3
+
+> “Quanto costa entrare allo Zoo di Barcellona?”
+
+* Embedding: `"prezzo ingresso zoo Barcellona"`
+* Fallback automatico su campo strutturato:
+
+  ```json
+  {
+    "title": "Zoo di Barcellona",
+    "price": 21.4,
+    "price_valid_until": "2025-12-31"
+  }
+  ```
+
+👉 Il sistema RAG cerca prima nel Vector DB, e poi, se necessario, prende `price` da `metadata` o tabella relazionale (`PostgreSQL`).
+
+---
+
+### ✅ C. Query orientata a **itinerario / esperienza personalizzata**
+
+#### 🧾 Esempio 4
+
+> “Cosa posso fare a Torino in un weekend culturale?”
+
+* Embedding: `"itinerario culturale Torino weekend"`
+* Filtro su:
+
+  ```json
+  {
+    "location": "Torino",
+    "category": ["museo", "storico", "cultura"],
+    "tags": ["weekend"],
+    "average_duration_hours": {"lte": 3}
+  }
+  ```
+
+👉 Serve aggregazione/matching su:
+
+* priorità culturale
+* tempo disponibile
+* distanza (se vuoi ottimizzare spostamenti)
+
+---
+
+## 🧭 2. Come si arriva a una **risposta completa tipo “piano di viaggio”?**
+
+### 🧩 Step-by-step: Architettura RAG + Planning
+
+| Fase | Azione                                                               | Tool/Componente                     |
+| ---- | -------------------------------------------------------------------- | ----------------------------------- |
+| 1    | Utente fa domanda (es. “Cosa fare 3 giorni a Praga con bambini?”)    | Prompt GPT → function call (intent) |
+| 2    | Parsing intenti: location, durata, preferenze                        | GPT + NER                           |
+| 3    | Query vector DB con embedding + filtri                               | Vector DB (es. Qdrant)              |
+| 4    | Raccolta chunk contenuti attinenti (musei, parchi, attività, eventi) | Top-k retrieval                     |
+| 5    | Fallback per prezzi/orari (se richiesti esplicitamente)              | PostgreSQL o campo `metadata`       |
+| 6    | Passaggio a GPT (RAG) con i chunk                                    | Context input                       |
+| 7    | GPT genera itinerario personalizzato (per tempo / tema / target)     | GPT-4o / GPT-4o mini                |
+
+---
+
+### 📊 Quante chiamate servono (in media)?
+
+| Step                   | Numero chiamate | Note                                                          |
+| ---------------------- | --------------- | ------------------------------------------------------------- |
+| Embedding query        | 1               | Testo utente → embedding                                      |
+| Search Vector DB       | 1               | Con filtri su metadata (location, data, categoria…)           |
+| Fallback su dati certi | 0–1             | Solo se serve info precisa (prezzo, orario, durata)           |
+| GPT per itinerario     | 1               | Passi il contesto recuperato come `context` o `system prompt` |
+
+🔁 **Totale tipico**: **2–3 chiamate** per itinerario completo.
+
+---
+
+### 🧠 Esempio di orchestrazione (semplificata)
+
+```python
+# Step 1 – Embed query
+embedding = embed("itinerario di 3 giorni a Berlino con bambini")
+
+# Step 2 – Vector search + filtri
+results = search_kb(
+    vector=embedding,
+    filters={
+        "location": "Berlino",
+        "tags": ["bambini"],
+        "duration_hours": {"lte": 3}
+    }
+)
+
+# Step 3 – Estraggo metadata (prezzi/orari) se richiesti
+zoo_price = get_structured_data("Zoo di Berlino")
+
+# Step 4 – Passo tutto a GPT-4o mini
+gpt_prompt = build_rag_prompt(results, structured_data=zoo_price)
+
+response = chatgpt(gpt_prompt)
+```
+
+---
+
+### 🚀 Vuoi che ti generi uno **snippet Python completo per orchestrazione** con Qdrant + GPT + itinerario turistico?
+
+Posso anche simulare una **risposta GPT a 3 giorni a Berlino** se vuoi vedere l’output finale.
 
 
 ---
