@@ -867,6 +867,184 @@ Posso anche simulare una **risposta GPT a 3 giorni a Berlino** se vuoi vedere l�
 
 ---
 
+Perfetto. Ecco un **esempio completo di implementazione di un sistema RAG (Retrieval-Augmented Generation)** usando i seguenti componenti in Google Cloud:
+
+---
+
+### ⚙️ **Stack Tecnologico**
+
+| Componente           | Scelta                                                  | Ruolo                                                           |
+| -------------------- | ------------------------------------------------------- | --------------------------------------------------------------- |
+| **Embeddings**       | Google `textembedding-gecko`                            | Generazione di vettori semantici per domande/contenuti          |
+| **Vector DB**        | **Vertex AI Vector Search** (`Datapoints`)              | Storage/query vettoriale con metadata filtrabili                |
+| **LLM**              | **Gemini 1.5 Pro** (via `Vertex AI Generative Service`) | Generazione risposta usando i documenti recuperati (RAG)        |
+| **Dati Certi**       | **PostgreSQL** (CloudSQL)                               | Prezzi, orari, tabellari strutturati, fallback o enrichment     |
+| **Function Calling** | Gemini Function calling o orchestrazione manuale        | Per recuperare info fuori dal vector DB (es. prezzi o API live) |
+
+---
+
+## 🧩 **Struttura: Passaggi logici**
+
+```mermaid
+graph LR
+A[User Query] --> B[Embedding via Gecko]
+B --> C[Vertex AI Vector Search]
+C --> D{Results found?}
+D -- Yes --> E[Pass results to Gemini in context]
+D -- No --> F[Function Call to PostgreSQL/API]
+E --> G[Gemini Response]
+F --> G
+```
+
+---
+
+## 🧪 ESEMPIO CONCRETO – “Quanto costa il Museo Egizio di Torino?”
+
+### 📌 1. Input Utente
+
+```python
+user_query = "Quanto costa il Museo Egizio di Torino?"
+```
+
+---
+
+### 📍 2. Genera Embedding (Google `gecko`)
+
+```python
+from vertexai.language_models import TextEmbeddingModel
+
+model = TextEmbeddingModel.from_pretrained("textembedding-gecko")
+embedding = model.get_embeddings([user_query])[0].values
+```
+
+---
+
+### 📚 3. Query su **Vector DB Vertex AI**
+
+```python
+from google.cloud import aiplatform_v1beta1 as aiplatform
+
+vector_client = aiplatform.MatchServiceClient()
+index_endpoint = "projects/your-project/locations/us-central1/indexEndpoints/1234567890"
+
+# Costruisci la query con filtri, se servono
+query = {
+    "datapoint": {
+        "feature_vector": embedding,
+        "restricts": [{"namespace": "type", "allow_list": ["museo"]}],
+    },
+    "neighbor_count": 5
+}
+
+response = vector_client.find_neighbors(
+    request={"index_endpoint": index_endpoint, "deployed_index_id": "default", "queries": [query]}
+)
+
+matches = response.responses[0].nearest_neighbors
+```
+
+---
+
+### ⚠️ 4. Se non trovi il prezzo nella KB → Function Call verso PostgreSQL
+
+```python
+import psycopg2
+
+def get_ticket_price(museum_name):
+    conn = psycopg2.connect("host=... dbname=... user=... password=...")
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT price FROM tickets WHERE LOWER(name) = LOWER(%s) LIMIT 1", (museum_name,)
+    )
+    result = cursor.fetchone()
+    conn.close()
+    return result[0] if result else None
+
+museum_name = "Museo Egizio di Torino"
+price = get_ticket_price(museum_name)
+```
+
+---
+
+### 💬 5. Preparazione del Prompt RAG per **Gemini Pro**
+
+```python
+from vertexai.generative_models import GenerativeModel
+
+gemini = GenerativeModel("gemini-1.5-pro-preview")
+
+context_chunks = [match.datapoint.datapoint_id + ": " + match.datapoint.metadata["description"]
+                  for match in matches]
+
+prompt = f"""
+Domanda: {user_query}
+Contesto utile:
+{chr(10).join(context_chunks)}
+
+Prezzo da DB: {price if price else "non disponibile"}
+
+Rispondi con precisione, includendo se possibile prezzo e link ufficiale.
+"""
+
+response = gemini.generate_content(prompt)
+print(response.text)
+```
+
+---
+
+## ✅ Output finale (esempio simulato)
+
+> 🎫 Il Museo Egizio di Torino costa **18€** per il biglietto intero.
+> ⏰ È aperto dalle 09:00 alle 18:30 dal lunedì alla domenica.
+> 🔗 Link ufficiale: [https://museoegizio.it](https://museoegizio.it)
+
+---
+
+## 📦 Schema `PostgreSQL` suggerito per fallback
+
+```sql
+CREATE TABLE tickets (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  location TEXT,
+  category TEXT,
+  price NUMERIC,
+  last_updated DATE
+);
+```
+
+---
+
+## 🔄 Automazione con Function Calling Gemini (alternativa)
+
+Puoi anche definire **una funzione chiamabile da Gemini** come:
+
+```json
+{
+  "name": "get_ticket_price",
+  "description": "Recupera il prezzo di un museo dal database",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "museum_name": {"type": "string"}
+    },
+    "required": ["museum_name"]
+  }
+}
+```
+
+---
+
+## 🧭 Vuoi anche:
+
+* Template YAML per **deployment Vertex AI Index + embeddings**?
+* Esempio per **itinerario di 3 giorni** generato in Gemini con chunk da Vector DB?
+
+Posso fornirti entrambi. Vuoi che prosegua?
+
+
+---
+
 ### 🚀 Prossimi Passi Operativi
 
 1. **Selezione 10 città target** (es. Roma, Firenze, Parigi, Barcellona, Berlino, Praga…)
