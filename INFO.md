@@ -1,4 +1,4 @@
-# **PoC TravelForge – Progetto "TravelForge Spark"**
+# **PoC TravelForge – Progetto "TravelForge Spark"** - Introduzione
 
 **Obiettivo**: In 7 settimane realizzare una piattaforma di travel tech che fornisca un’esperienza fluida e personalizzata: l’utente indica meta e durata (es. Berlino, 5 giorni) e ottiene un pacchetto completo di informazioni e strumenti AI-driven.
 
@@ -175,12 +175,9 @@
 
 ---
 
-
-## 6. Descrizione API REST e Agenti Smart
-
 # TravelForge Spark – Documentazione API & Agenti Intelligenti
 
-## 1. Descrizione delle API REST Necessarie
+## 6. Descrizione delle API REST Necessarie
 
 ### 6.1 Autenticazione e Gestione Utenti
 
