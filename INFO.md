@@ -17,7 +17,99 @@
 * Smart Alerts & Links
 * Interactive Demo UI
 
-## 2. Ambito e Funzionalità
+---
+
+## 2. Descrizione Funzionale Agenti Intelligenti e Automazioni
+
+### 2.1 Itinerary Auto-Builder Agent
+
+* **Input**: destinazione, durata, stagione, preferenze
+* **Tecnologia**: GPT-4o (o mini) + pipeline NLP custom
+* **Output**: schema itinerario giornaliero, con link ufficiali e timeframe
+* **Funzioni**:
+
+  * Generazione schema base
+  * Traduzione e localizzazione contenuti
+  * Inclusione tappe AI-ranked
+
+### 2.2 Tourism Data Integrator (RPA Agent)
+
+* **Input**: città
+* **Tecnologia**: Puppeteer + OCR + cron scheduler
+* **Output**: dataset attrazioni, musei, orari, prezzi aggiornati
+* **Funzioni**:
+
+  * Scraping portali ufficiali (Visit City, Nostracultura)
+  * Parsing HTML, PDF e contenuti dinamici
+  * Normalizzazione dati e validazione
+
+### 2.3 Ticket Price Estimator Agent
+
+* **Input**: elenco attività/attrazioni, date
+* **Tecnologia**: RPA scraping + regressione costi
+* **Output**: tabella prezzi e stima costo viaggio
+* **Funzioni**:
+
+  * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
+  * Stima costi mancanti tramite modello AI (MAPE ≤ 12%)
+
+### 2.4 Events & Nightlife Agent
+
+* **Input**: città, data, interessi utente
+* **Tecnologia**: scraping + embedding + filtro AI
+* **Output**: eventi rilevanti con info e link
+* **Funzioni**:
+
+  * Parsing di Eventbrite, Meetup, siti locali
+  * Raccomandazione semantica eventi simili
+
+### 2.5 Mobility Aggregator Agent
+
+* **Input**: città, data
+* **Tecnologia**: API calls + scraping
+* **Output**: tabella con tariffe car/bike/scooter sharing
+* **Funzioni**:
+
+  * Comparazione multi-provider (ShareNow, Lime, ecc.)
+  * Previsione disponibilità per fascia oraria
+
+### 2.6 Home Exchange Matcher Agent
+
+* **Input**: profilo host e viaggiatore
+* **Tecnologia**: Similarity Matching (embeddings + filtri logici)
+* **Output**: coppie compatibili per scambio
+* **Funzioni**:
+
+  * Matching preferenze / date / tipo alloggio
+  * Classificazione qualità match (score > soglia)
+
+### 2.7 Smart Notification Engine
+
+* **Input**: profilo utente, itinerario salvato, dati prezzo/eventi
+* **Tecnologia**: Rule-based + AI thresholding
+* **Output**: alert push/email su variazioni rilevanti
+* **Funzioni**:
+
+  * Trigger su soglie prezzo
+  * Notifiche eventi imminenti o nuovi
+
+### 2.8 TravelGPT Chat Agent
+
+* **Input**: domanda generica o contestuale
+* **Tecnologia**: GPT-4o + RAG (opzionale con Vector DB)
+* **Output**: risposte precise su viaggio, attività, cultura locale
+* **Funzioni**:
+
+  * Risposte grounding su contenuti reali
+  * Integrazione con knowledge base da scraping/API
+
+---
+
+Perfetto, aggiorniamo il documento focalizzandoci sul **requisito strategico di costruire una Knowledge Base (KB)** per aumentare **precisione, affidabilità e ricchezza delle risposte**, soprattutto per:
+
+---
+
+## 3. Ambito e Funzionalità
 
 | Feature                       | Descrizione                                                                                                                                          | Valore Creativo                         |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
@@ -52,7 +144,9 @@
 7. **CI/CD**: GitHub Actions (build, lint, test, deploy su dev e staging)
 8. **Monitoring**: Prometheus & Grafana (metriche API e RPA)
 
-## 3. Functional Prototype: Backend Itinerary Service
+---
+
+## 4. Functional Prototype: Backend Itinerary Service
 
 **Obiettivo**: Implementare in Python un endpoint FastAPI che, dati in input `city_country`, `duration_days`, `season_or_dates`, restituisca:
 
@@ -73,7 +167,7 @@
      * Eseguire scraping o chiamate API a siti ufficiali.
      * Validare e normalizzare i prezzi (evitando dati errati o inventati).
 
-### 3.1 Input e Output
+### 4.1 Input e Output
 
 * **Input JSON**:
 
@@ -115,7 +209,7 @@
 - Car sharing: https://www.sharenow.com
 ```
 
-### 3.2 Architettura e Pipeline
+### 4.2 Architettura e Pipeline
 
 1. **Endpoint FastAPI** `/generate-itinerary`
 2. **Service Layer**:
@@ -129,7 +223,7 @@
 
 ---
 
-### 3.3 Backend Deliverables
+### 4.3 Backend Deliverables
 
 1. **Backend**: FastAPI + Python (scikit-learn, Pandas, Hugging Face Transformers)
 2. **Data Store**: PostgreSQL (utenti, itinerari, case, eventi) + Redis (cache offerte, previsioni)
@@ -151,7 +245,7 @@
 
 
 
-## 4. Timeline & Deliverables (7 settimane)
+## 5. Timeline & Deliverables (7 settimane)
 
 | Settimana | Attività                                                                                                                                    | Deliverable                            |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
@@ -163,7 +257,7 @@
 | 6         | **Car Sharing & Accommodation Advisor**: RPA price aggregator car sharing; AI consigli zone e periodi; Home Exchange Matcher                | Mobility dashboard + matching service  |
 | 7         | **Gamification Engine** + **Interactive Demo UI**: leaderboard, notifiche, link diretti, test end-to-end, documentazione, presentazione PoC | UI completa, report PoC, demo live     |
                              |
-## 5. Metriche di Successo
+## 6. Metriche di Successo
 
 * **Fluidità UX**: <2 click per ottenere itinerario completo
 * **Accuratezza dati culturali** ≥ 95%
@@ -177,9 +271,9 @@
 
 # TravelForge Spark – Documentazione API & Agenti Intelligenti
 
-## 6. Descrizione delle API REST Necessarie
+## 7. Descrizione delle API REST Necessarie
 
-### 6.1 Autenticazione e Gestione Utenti
+### 7.1 Autenticazione e Gestione Utenti
 
 | Metodo | Endpoint              | Descrizione                           |
 | ------ | --------------------- | ------------------------------------- |
@@ -190,7 +284,7 @@
 
 ---
 
-### 6.2 Generazione Itinerario
+### 7.2 Generazione Itinerario
 
 | Metodo | Endpoint            | Descrizione                                                  |
 | ------ | ------------------- | ------------------------------------------------------------ |
@@ -200,7 +294,7 @@
 
 ---
 
-### 6.3 Modulo Prezzi e Prenotazioni
+### 7.3 Modulo Prezzi e Prenotazioni
 
 | Metodo | Endpoint                    | Descrizione                                  |
 | ------ | --------------------------- | -------------------------------------------- |
@@ -209,7 +303,7 @@
 
 ---
 
-### 6.4 Modulo Eventi e Nightlife
+### 7.4 Modulo Eventi e Nightlife
 
 | Metodo | Endpoint                | Descrizione                                                  |
 | ------ | ----------------------- | ------------------------------------------------------------ |
@@ -228,7 +322,7 @@
 
 ---
 
-### 6.6 Gamification e Notifiche
+### 7.6 Gamification e Notifiche
 
 | Metodo | Endpoint           | Descrizione                                       |
 | ------ | ------------------ | ------------------------------------------------- |
@@ -237,102 +331,12 @@
 
 ---
 
-### 6.7 Immagini e Contenuti
+### 7.7 Immagini e Contenuti
 
 | Metodo | Endpoint              | Descrizione                                |
 | ------ | --------------------- | ------------------------------------------ |
 | GET    | /images/search        | Cerca immagini per destinazione/tema       |
 | GET    | /content/links/{type} | Link utili per prenotazione e informazioni |
-
----
-
-## 7. Descrizione Funzionale Agenti Intelligenti e Automazioni
-
-### 7.1 Itinerary Auto-Builder Agent
-
-* **Input**: destinazione, durata, stagione, preferenze
-* **Tecnologia**: GPT-4o (o mini) + pipeline NLP custom
-* **Output**: schema itinerario giornaliero, con link ufficiali e timeframe
-* **Funzioni**:
-
-  * Generazione schema base
-  * Traduzione e localizzazione contenuti
-  * Inclusione tappe AI-ranked
-
-### 7.2 Tourism Data Integrator (RPA Agent)
-
-* **Input**: città
-* **Tecnologia**: Puppeteer + OCR + cron scheduler
-* **Output**: dataset attrazioni, musei, orari, prezzi aggiornati
-* **Funzioni**:
-
-  * Scraping portali ufficiali (Visit City, Nostracultura)
-  * Parsing HTML, PDF e contenuti dinamici
-  * Normalizzazione dati e validazione
-
-### 7.3 Ticket Price Estimator Agent
-
-* **Input**: elenco attività/attrazioni, date
-* **Tecnologia**: RPA scraping + regressione costi
-* **Output**: tabella prezzi e stima costo viaggio
-* **Funzioni**:
-
-  * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
-  * Stima costi mancanti tramite modello AI (MAPE ≤ 12%)
-
-### 7.4 Events & Nightlife Agent
-
-* **Input**: città, data, interessi utente
-* **Tecnologia**: scraping + embedding + filtro AI
-* **Output**: eventi rilevanti con info e link
-* **Funzioni**:
-
-  * Parsing di Eventbrite, Meetup, siti locali
-  * Raccomandazione semantica eventi simili
-
-### 7.5 Mobility Aggregator Agent
-
-* **Input**: città, data
-* **Tecnologia**: API calls + scraping
-* **Output**: tabella con tariffe car/bike/scooter sharing
-* **Funzioni**:
-
-  * Comparazione multi-provider (ShareNow, Lime, ecc.)
-  * Previsione disponibilità per fascia oraria
-
-### 7.6 Home Exchange Matcher Agent
-
-* **Input**: profilo host e viaggiatore
-* **Tecnologia**: Similarity Matching (embeddings + filtri logici)
-* **Output**: coppie compatibili per scambio
-* **Funzioni**:
-
-  * Matching preferenze / date / tipo alloggio
-  * Classificazione qualità match (score > soglia)
-
-### 7.7 Smart Notification Engine
-
-* **Input**: profilo utente, itinerario salvato, dati prezzo/eventi
-* **Tecnologia**: Rule-based + AI thresholding
-* **Output**: alert push/email su variazioni rilevanti
-* **Funzioni**:
-
-  * Trigger su soglie prezzo
-  * Notifiche eventi imminenti o nuovi
-
-### 2.8 TravelGPT Chat Agent
-
-* **Input**: domanda generica o contestuale
-* **Tecnologia**: GPT-4o + RAG (opzionale con Vector DB)
-* **Output**: risposte precise su viaggio, attività, cultura locale
-* **Funzioni**:
-
-  * Risposte grounding su contenuti reali
-  * Integrazione con knowledge base da scraping/API
-
----
-
-Perfetto, aggiorniamo il documento focalizzandoci sul **requisito strategico di costruire una Knowledge Base (KB)** per aumentare **precisione, affidabilità e ricchezza delle risposte**, soprattutto per:
 
 ---
 
