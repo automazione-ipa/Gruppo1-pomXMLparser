@@ -59,7 +59,9 @@
 * **Input**: 
   * Elenco attività/attrazioni
   * Date
-* **Tecnologia**: RPA scraping + regressione costi
+* **Tecnologia**:
+  * RPA scraping
+  * ML: regressione per stima dei costi
 * **Output**: tabella prezzi e stima costo viaggio
 * **Funzioni**:
 
@@ -110,7 +112,9 @@ Vuol dire che, in media, l’errore percentuale tra le tue previsioni e i valori
 * **Input**:
   * Città
   * Data
-* **Tecnologia**: API calls + scraping
+* **Tecnologia**:
+  * API calls
+  * Scraping
 * **Output**: tabella con tariffe car/bike/scooter sharing
 * **Funzioni**:
 
