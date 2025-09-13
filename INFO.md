@@ -23,8 +23,12 @@
 
 ### 2.1 Itinerary Auto-Builder Agent
 
-* **Input**: destinazione, durata, stagione, preferenze
-* **Tecnologia**: GPT-4o (o mini) + pipeline NLP custom
+* **Input**:
+  * Destinazione
+  * Durata
+  * Stagione
+  * Preferenze: tipo di viaggio (culturale, relax spiaggia o montagna, on the road, safari, ...)
+* **Tecnologia**: GPT-4o (4o-mini) + pipeline NLP custom: fornire risposte migliori grazie ai dati forniti dai provider (trasporti, attività, eventi, ...)
 * **Output**: schema itinerario giornaliero, con link ufficiali e timeframe
 * **Funzioni**:
 
