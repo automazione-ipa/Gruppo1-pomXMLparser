@@ -64,12 +64,41 @@
 * **Funzioni**:
 
   * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
-  * Stima costi mancanti tramite modello AI (MAPE ≤ 12%)
+  * Stima costi mancanti tramite modello AI (**MAPE ≤ 12%**)
+ 
+**MAPE (Mean Absolute Percentage Error)** — metrica valutazione precisione per un modello di previsione
+
+📌 **Definizione:**
+
+$$
+\text{MAPE} = \frac{100\%}{n} \sum_{i=1}^{n} \left|\frac{\text{Valore Reale}_i - \text{Valore Predetto}_i}{\text{Valore Reale}_i}\right|
+$$
+
+In parole semplici:
+
+* Confronta i valori previsti con quelli reali.
+* Calcola l’errore in percentuale per ogni osservazione.
+* Fa la media.
+
+📊 **MAPE ≤ 12%**
+Vuol dire che, in media, l’errore percentuale tra le tue previsioni e i valori reali deve essere **al massimo del 12%**.
+In altre parole, il tuo modello è considerato abbastanza accurato se:
+
+$$
+\text{MAPE} \le 12\%
+$$
+
 
 ### 2.4 Events & Nightlife Agent
 
-* **Input**: città, data, interessi utente
-* **Tecnologia**: scraping + embedding + filtro AI
+* **Input**:
+  * Città
+  * Data
+  * Interessi utente
+* **Tecnologia**:
+  * Scraping
+  * Embedding
+  * Filtro AI
 * **Output**: eventi rilevanti con info e link
 * **Funzioni**:
 
@@ -78,7 +107,9 @@
 
 ### 2.5 Mobility Aggregator Agent
 
-* **Input**: città, data
+* **Input**:
+  * Città
+  * Data
 * **Tecnologia**: API calls + scraping
 * **Output**: tabella con tariffe car/bike/scooter sharing
 * **Funzioni**:
@@ -88,8 +119,11 @@
 
 ### 2.6 Home Exchange Matcher Agent
 
-* **Input**: profilo host e viaggiatore
-* **Tecnologia**: Similarity Matching (embeddings + filtri logici)
+* **Input**:
+  * profilo host
+  * profilo viaggiatore
+* **Tecnologia**:
+  * Similarity Matching (embeddings + filtri logici)
 * **Output**: coppie compatibili per scambio
 * **Funzioni**:
 
@@ -98,8 +132,14 @@
 
 ### 2.7 Smart Notification Engine
 
-* **Input**: profilo utente, itinerario salvato, dati prezzo/eventi
-* **Tecnologia**: Rule-based + AI thresholding
+* **Input**:
+  * Profilo utente
+  * Itinerario salvato
+  * Dati prezzo
+  * Dati eventi
+* **Tecnologia**: 
+  * Rule-based
+  * AI thresholding
 * **Output**: alert push/email su variazioni rilevanti
 * **Funzioni**:
 
@@ -108,8 +148,10 @@
 
 ### 2.8 TravelGPT Chat Agent
 
-* **Input**: domanda generica o contestuale
-* **Tecnologia**: GPT-4o + RAG (opzionale con Vector DB)
+* **Input**: 
+  * Domanda generica o contestuale
+* **Tecnologia**: 
+  * GPT-4o + RAG (opzionale con Vector DB)
 * **Output**: risposte precise su viaggio, attività, cultura locale
 * **Funzioni**:
 
