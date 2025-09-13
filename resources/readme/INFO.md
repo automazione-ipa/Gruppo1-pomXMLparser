@@ -93,19 +93,46 @@ Vuol dire che, in media, l’errore percentuale tra le tue previsioni e i valori
 
 ### 2.4 Events & Nightlife Agent
 
+#### 🎯 **Obiettivo**
+
+Fornire all’utente un elenco aggiornato e personalizzato di eventi e luoghi nightlife rilevanti nella città e nelle date di interesse, ottimizzando il ranking tramite filtri AI e embedding semantici.
+
+#### 🔎 Caratteristiche
+
 * **Input**:
-  * Città
-  * Data
-  * Interessi utente
+  * Città → es. “Berlino”
+  * Data → es. 15-20 ottobre
+  * Interessi utente → es. “tech meetup”, “jazz”, “arte contemporanea”, “local nightlife”
 * **Tecnologia**:
-  * Scraping
-  * Embedding
-  * Filtro AI
-* **Output**: eventi rilevanti con info e link
+  * **Scraping dinamico** (Puppeteer) → per siti che caricano contenuti via JS
+  * **API Integration** → quando disponibili (es. Eventbrite API)
+  * **NLP Embedding** → per indicizzare descrizioni eventi in un Vector DB e permettere ricerca semantica
+  * **Filtro AI** → riduzione del rumore, vedi sotto
+  * **Scheduler** (cron) → per aggiornamento periodico eventi
+* **Output**:
+  * **Elenco eventi** in ordine di rilevanza, ciascuno con:
+    * Nome, luogo, data/ora
+    * Costo (se disponibile)
+    * Descrizione breve
+    * Link ufficiale
+    * Categoria AI-classificata
+    * Punteggio di rilevanza
+
 * **Funzioni**:
 
   * Parsing di Eventbrite, Meetup, siti locali
   * Raccomandazione semantica eventi simili
+
+#### 🧠 **Filtro AI – Cosa Significa**
+
+Il **Filtro AI** è un modulo che:
+
+1. **Classifica** ogni evento in base a categorie (es. musica, arte, networking, nightlife, kids-friendly) usando un modello NLP.
+2. **Valuta rilevanza** rispetto agli interessi utente (semantic similarity tra embedding evento e embedding profilo/interessi utente).
+3. **Applica regole** (hard filters) → escludere eventi scaduti, duplicati, o in lingue non compatibili.
+4. **Ranking finale** → ordina i risultati secondo punteggio di affinità.
+
+Questo step evita di restituire all’utente eventi irrilevanti o rumorosi (es. spam, promozioni non pertinenti).
 
 ### 2.5 Mobility Aggregator Agent
 
@@ -1291,4 +1318,33 @@ Oppure posso fornirti lo **schema JSON dei documenti da caricare** nel Vector DB
 Posso ora aggiornare il documento includendo questa sezione come parte della descrizione delle automazioni intelligenti e della KB. Vuoi che proceda?
 Posso aiutarti a definire un **modello JSON flessibile con campi temporali** o un **parser date-aware per le query**. Vuoi che ti generi una base?
 
+---
+
+### 🗂️ **Schema Dati JSON (Normalizzato per Retrieval)**
+
+Ecco un esempio di schema dati normalizzato e adatto a indicizzazione in un Vector DB:
+
+```jsonc
+{
+  "event_id": "evt_20250913_001",        // ID univoco interno
+  "source": "eventbrite",                // fonte scraping/API
+  "city": "Berlin",
+  "country": "DE",
+  "title": "Berlin Tech Meetup - AI & Startups",
+  "description": "An evening of networking for AI enthusiasts and startup founders.",
+  "category": ["tech", "networking", "nightlife"],  // classificazione AI
+  "start_datetime": "2025-09-20T18:30:00+02:00",
+  "end_datetime": "2025-09-20T22:00:00+02:00",
+  "venue_name": "Factory Berlin",
+  "venue_address": "Rheinsberger Str. 76/77, 10115 Berlin",
+  "price_eur": 15.00,                    // null se gratuito
+  "currency": "EUR",
+  "language": "en",
+  "audience": ["adults"],                // classificazione AI (adults/kids/family)
+  "official_url": "https://www.eventbrite.com/e/berlin-tech-meetup-ai-startups-tickets-12345",
+  "tags": ["AI", "startups", "networking"],  // utile per semantic search
+  "relevance_score": 0.87,               // punteggio calcolato dal Filtro AI
+  "last_updated": "2025-09-13T12:00:00Z"
+}
+```
 

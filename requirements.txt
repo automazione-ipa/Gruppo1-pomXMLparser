@@ -1,12 +1,46 @@
-# HTTP & Parsing
-requests>=2.32.4
-beautifulsoup4>=4.13.4
-lxml>=5.4.0
-# Graph Analytics and Data manipulation
-pandas>=1.2.0
-networkx>=3.2.1
-# (Opzionali) YAML config, storage e .env
-python-dotenv>=1.1.0
-PyYAML>=6.0.2
-# (Futuro) per Neo4j
-# neo4j>=4.3.1
+##########################################################
+# 🌐 HTTP & Parsing
+# Utilizzati per scraping, parsing HTML/XML e API REST
+##########################################################
+requests==2.32.5           # richiesto da: scraping, integrazioni API
+beautifulsoup4==4.14.2     # parsing HTML
+lxml==6.0.2                # parser XML/HTML veloce usato da BeautifulSoup
+
+##########################################################
+# 📊 Data Manipulation & Graph Analytics
+##########################################################
+pandas==2.3.3              # dataframes, analisi dati
+networkx==3.4.2            # gestione grafi e itinerari, analisi reti
+
+##########################################################
+# ⚙️ Config, Storage & Serialization
+##########################################################
+python-dotenv==1.1.1       # caricamento chiavi/API da .env
+pydantic==2.11.10          # validazione modelli strutturati (Travel*, UserProfile…)
+PyYAML==6.0.3              # lettura/scrittura config YAML
+SQLAlchemy==2.0.43         # ORM e gestione connessioni DB
+psycopg2==2.9.10           # driver PostgreSQL (SQLAlchemy backend)
+
+##########################################################
+# 🧠 Intelligenza Artificiale & LLM Integration
+##########################################################
+langchain==1.0.0a10        # framework core per pipeline multi-agente
+langchain-openai==0.3.34   # integrazione OpenAI per LangChain
+openai==2.1.0              # SDK diretto OpenAI (API raw o fallback)
+langgraph==1.0.0a4         # (supporto) motore graph-based per LangChain agents
+
+##########################################################
+# 🧰 Utility e dipendenze secondarie
+##########################################################
+tqdm==4.67.1               # barre di avanzamento (debug, scraping)
+tenacity==9.1.2            # retry con backoff (usato da OpenAI e LangChain)
+typing-extensions==4.15.0  # tipizzazione avanzata (richiesto da Pydantic/LangChain)
+pytz==2025.2               # timezone support (pandas)
+urllib3==2.5.0             # layer HTTP base (richiesto da requests)
+
+##########################################################
+# 💡 Opzionali / Futuro
+##########################################################
+# neo4j>=4.3.1              # per grafo semantico o persistenza itinerari complessi
+# fastapi>=0.115.0          # eventuale API server
+# streamlit>=1.38.0         # eventuale UI interattiva
