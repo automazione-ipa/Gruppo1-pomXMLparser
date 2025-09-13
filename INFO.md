@@ -64,7 +64,7 @@
 * **Funzioni**:
 
   * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
-  * Stima costi mancanti tramite modello AI (**MAPE ≤ 12%**)
+  * Stima costi mancanti tramite modello di regressione (**MAPE ≤ 12%**)
 
 Il nostro modello sarà considerato abbastanza accurato se:
 
