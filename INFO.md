@@ -65,8 +65,14 @@
 
   * Raccolta prezzi da siti ufficiali o piattaforme prenotazione
   * Stima costi mancanti tramite modello AI (**MAPE ≤ 12%**)
- 
-**MAPE (Mean Absolute Percentage Error)** — metrica valutazione precisione per un modello di previsione
+
+Il nostro modello sarà considerato abbastanza accurato se:
+
+$$
+\text{MAPE} \le 12\%
+$$
+
+#### **MAPE (Mean Absolute Percentage Error)** — metrica valutazione precisione per un modello di previsione
 
 📌 **Definizione:**
 
@@ -82,12 +88,6 @@ In parole semplici:
 
 📊 **MAPE ≤ 12%**
 Vuol dire che, in media, l’errore percentuale tra le tue previsioni e i valori reali deve essere **al massimo del 12%**.
-In altre parole, il tuo modello è considerato abbastanza accurato se:
-
-$$
-\text{MAPE} \le 12\%
-$$
-
 
 ### 2.4 Events & Nightlife Agent
 
