@@ -106,7 +106,7 @@ Fornire all’utente un elenco aggiornato e personalizzato di eventi e luoghi ni
 * **Tecnologia**:
   * **Scraping dinamico** (Puppeteer) → per siti che caricano contenuti via JS
   * **API Integration** → quando disponibili (es. Eventbrite API)
-  * * **NLP Embedding** → per indicizzare descrizioni eventi in un Vector DB e permettere ricerca semantica
+  * **NLP Embedding** → per indicizzare descrizioni eventi in un Vector DB e permettere ricerca semantica
   * **Filtro AI** → riduzione del rumore, vedi sotto
   * **Scheduler** (cron) → per aggiornamento periodico eventi
 * **Output**:
