@@ -45,7 +45,7 @@
   * Città
 * **Tecnologia**:
   * Puppeteer (utile per automazione scraping)
-  * OCR (Optical Recognition Google per data ingestion da documenti di diverso formato)
+  * OCR (Optical Character Recognition Google per data ingestion da documenti di diverso formato)
   * Cron Scheduler
 * **Output**: dataset attrazioni, musei, orari, prezzi aggiornati
 * **Funzioni**:
