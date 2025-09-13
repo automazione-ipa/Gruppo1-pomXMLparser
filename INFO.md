@@ -39,7 +39,10 @@
 ### 2.2 Tourism Data Integrator (RPA Agent)
 
 * **Input**: città
-* **Tecnologia**: Puppeteer + OCR + cron scheduler
+* **Tecnologia**:
+  * Puppeteer (utile per automazione scraping)
+  * OCR (Optical Recognition Google per data ingestion da documenti di diverso formato)
+  * Cron Scheduler
 * **Output**: dataset attrazioni, musei, orari, prezzi aggiornati
 * **Funzioni**:
 
