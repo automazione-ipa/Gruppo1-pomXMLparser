@@ -28,7 +28,10 @@
   * Durata
   * Stagione
   * Preferenze: tipo di viaggio (culturale, relax spiaggia o montagna, on the road, safari, ...)
-* **Tecnologia**: GPT-4o (4o-mini) + pipeline NLP custom: fornire risposte migliori grazie ai dati forniti dai provider (trasporti, attività, eventi, ...)
+* **Tecnologia**:
+  * gpt-4o-mini
+  * **Pipeline NLP Custom**: è il modulo core della nostra applicazione, si occupa di recuperare e utilizzare tutti i dati che servono
+  * **Fine tuning**: fornire risposte migliori grazie ai dati forniti dai provider (trasporti, attività, eventi, ...)
 * **Output**: schema itinerario giornaliero, con link ufficiali e timeframe
 * **Funzioni**:
 
@@ -38,7 +41,8 @@
 
 ### 2.2 Tourism Data Integrator (RPA Agent)
 
-* **Input**: città
+* **Input**:
+  * Città
 * **Tecnologia**:
   * Puppeteer (utile per automazione scraping)
   * OCR (Optical Recognition Google per data ingestion da documenti di diverso formato)
@@ -52,7 +56,9 @@
 
 ### 2.3 Ticket Price Estimator Agent
 
-* **Input**: elenco attività/attrazioni, date
+* **Input**: 
+  * Elenco attività/attrazioni
+  * Date
 * **Tecnologia**: RPA scraping + regressione costi
 * **Output**: tabella prezzi e stima costo viaggio
 * **Funzioni**:
