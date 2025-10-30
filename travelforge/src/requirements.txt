@@ -1,5 +1,0 @@
-langchain==1.0.0a10
-langchain-openai
-openai
-python-dotenv
-pydantic==2.11.10

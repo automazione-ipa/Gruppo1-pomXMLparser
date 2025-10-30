@@ -5,6 +5,7 @@ from models import TravelRequest, UserProfile, TravelResponse
 import json
 from pydantic import ValidationError
 
+
 def run_pipeline():
     user_input = input("Ciao! Raccontami il tuo viaggio desiderato: ").strip()
     if not user_input:
@@ -52,6 +53,7 @@ def run_pipeline():
         resp_serializable = to_serializable_v2(sr_resp)
         resp_obj = None
     print(json.dumps(resp_serializable, indent=2, ensure_ascii=False))
+
 
 if __name__ == "__main__":
     run_pipeline()

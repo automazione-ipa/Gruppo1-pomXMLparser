@@ -24,4 +24,4 @@ class Settings:
         self.neo4j_password = os.getenv('NEO4J_PASSWORD')
 
 
-settings = Settings(os.getenv('CONFIG_PATH', '../config.yaml'))
+settings = Settings(os.getenv('CONFIG_PATH', '../../config.yaml'))
