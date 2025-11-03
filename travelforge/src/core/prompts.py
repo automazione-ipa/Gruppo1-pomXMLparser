@@ -1,6 +1,7 @@
 """Modulo dei prompts per StructuredOutput con schema JSON (usando model_json_schema di Pydantic v2)."""
 import json
-from models import TravelRequest, UserProfile, TravelResponse
+from core.models import TravelRequest, UserProfile, TravelResponse
+
 
 travel_request_prompt = (
     "Se l'utente vuole pianificare un viaggio, costruisci un oggetto TravelRequest "

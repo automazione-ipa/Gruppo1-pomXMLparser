@@ -1,20 +1,17 @@
 # multiagent_chatbot.py
 import json
-import dotenv
 from typing import Any
 from pydantic import BaseModel
-from copy import deepcopy
 
 # langchain / langgraph imports (assumo le stesse versioni del tuo progetto)
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
-from langgraph.graph import StateGraph, END, add_messages
-from langgraph.prebuilt import ToolNode
+from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 
 # importa i modelli pydantic definiti (li hai forniti come models.py)
-from models import (
+from core.models import (
     TravelRequest,
     TravelResponse,
     UserProfile,
@@ -49,7 +46,7 @@ def build_agent(prompt_template: str, schema_class):
     return create_agent(
         model=llm,
         tools=[],  # per ora nessun tool esterno nei singoli agent
-        prompt=prompt_template,
+        system_prompt=prompt_template,
         response_format=schema_class,
     )
 
@@ -146,17 +143,10 @@ def make_agent_and_run(prompt_template: str, schema_class: Any, state_reservatio
     # build an agent that returns the schema_class
     agent = build_agent(prompt_template=prompt, schema_class=schema_class)
 
-    # invoke the agent: qui usiamo lo stesso pattern del tuo codice di esempio (agent.invoke([...]))
-    # Notare: in base alla versione di create_agent, l'API potrebbe essere .invoke([...]) oppure .run(...).
-    # Se nella tua versione .invoke richiede un'altra shape, adattalo di conseguenza.
     try:
         result = agent.invoke([HumanMessage(content=prompt)])
     except Exception as e:
-        # fallback attempt: alcuni create_agent hanno .run()
-        try:
-            result = agent.run(prompt)
-        except Exception as e2:
-            raise RuntimeError(f"Agent invocation failed: {e} / {e2}")
+        raise RuntimeError(f"Agent invocation failed: {e}.")
 
     # L'oggetto result potrebbe essere già un pydantic model o una dict.
     if isinstance(result, BaseModel):
@@ -164,14 +154,11 @@ def make_agent_and_run(prompt_template: str, schema_class: Any, state_reservatio
     elif isinstance(result, dict):
         return result
     elif isinstance(result, str):
-        # prova a parsare JSON dal testo
         try:
             return json.loads(result)
         except Exception:
-            # ritorna il testo grezzo sotto un campo 'raw'
             return {"raw": result}
     else:
-        # ultima risorsa
         return {"raw": str(result)}
 
 
@@ -180,18 +167,22 @@ def run_user_profile_module(reservation: ReservationSketch, user_message: str):
     out = make_agent_and_run(USER_PROFILE_PROMPT, UserProfile, reservation, user_message)
     return out
 
+
 def run_travel_request_module(reservation: ReservationSketch, user_message: str):
     out = make_agent_and_run(TRAVEL_REQUEST_PROMPT, TravelRequest, reservation, user_message)
     return out
+
 
 def run_planner_module(reservation: ReservationSketch, user_message: str):
     out = make_agent_and_run(PLANNER_PROMPT, TravelResponse, reservation, user_message)
     return out
 
+
 def run_housing_module(reservation: ReservationSketch, user_message: str):
     # schema semplice (dict)
     out = make_agent_and_run(HOUSING_PROMPT, dict, reservation, user_message)
     return out
+
 
 def run_events_module(reservation: ReservationSketch, user_message: str):
     out = make_agent_and_run(EVENTS_PROMPT, dict, reservation, user_message)
@@ -212,7 +203,7 @@ def run_supervisor(reservation: ReservationSketch, user_message: str) -> dict:
     try:
         result = agent.invoke([HumanMessage(content=prompt)])
     except Exception:
-        result = agent.run(prompt)
+        result = agent.invoke(prompt)
 
     # normalizza
     if isinstance(result, BaseModel):

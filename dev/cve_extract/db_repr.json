@@ -1,0 +1,2361 @@
+{
+  "tables": {
+    "alerts_definition": [
+      {
+        "column_name": "num_occurrences_period",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero di occorrenze periodo"
+      },
+      {
+        "column_name": "num_days_silence",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero di giorni di silenzio"
+      },
+      {
+        "column_name": "ts_last_notified_alert",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp ultimo alert notificato"
+      },
+      {
+        "column_name": "dat_start_validity",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_end_validity",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "flg_active",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag attivo"
+      },
+      {
+        "column_name": "flg_silenced",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag silenziato"
+      },
+      {
+        "column_name": "flg_nan",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag NaN"
+      },
+      {
+        "column_name": "control_value",
+        "data_type": "double precision",
+        "relation": null,
+        "human_readable_col_name": "valore controllo"
+      },
+      {
+        "column_name": "num_days_controlwindow",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero giorni finestra controllo"
+      },
+      {
+        "column_name": "cod_alert",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice alert"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "des_alert",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione alert"
+      },
+      {
+        "column_name": "des_alert_note",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "nota alert"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": "metric_definition.var_metric_id",
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "cod_alert_severity",
+        "data_type": "character varying",
+        "relation": "dom_alert_severity.cod_alert_severity",
+        "human_readable_col_name": "codice gravità alert"
+      },
+      {
+        "column_name": "cod_control_type",
+        "data_type": "character varying",
+        "relation": "dom_alert_control_type.cod_control_type",
+        "human_readable_col_name": "codice tipo controllo"
+      },
+      {
+        "column_name": "cod_control_operator",
+        "data_type": "character varying",
+        "relation": "dom_alert_control_operator.cod_control_operator",
+        "human_readable_col_name": "codice operatore controllo"
+      }
+    ],
+    "dom_metric_subtype": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_metric_subtype",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice sottotipo metrica"
+      },
+      {
+        "column_name": "des_metric_subtype",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione sottotipo metrica"
+      }
+    ],
+    "lib_definition": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_lib_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id libreria"
+      },
+      {
+        "column_name": "var_description",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione"
+      },
+      {
+        "column_name": "cod_mono_multi_dimension",
+        "data_type": "character varying",
+        "relation": "dom_metric_dimensions.cod_mono_multi_dimension",
+        "human_readable_col_name": "codice mono/multi dimensione"
+      },
+      {
+        "column_name": "cod_metric_type",
+        "data_type": "character varying",
+        "relation": "dom_metric_type.cod_metric_type",
+        "human_readable_col_name": "codice tipo metrica"
+      }
+    ],
+    "metric_bck": [
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "cod_class",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "codice classe"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "flt_result",
+        "data_type": "double precision",
+        "relation": null,
+        "human_readable_col_name": "risultato"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "cod_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione"
+      }
+    ],
+    "alerts": [
+      {
+        "column_name": "flt_result",
+        "data_type": "double precision",
+        "relation": null,
+        "human_readable_col_name": "risultato"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "ts_alert",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp alert"
+      },
+      {
+        "column_name": "flg_notified",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag notificato"
+      },
+      {
+        "column_name": "ts_alertnotified",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp alert notificato"
+      },
+      {
+        "column_name": "flg_silenced",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag silenziato"
+      },
+      {
+        "column_name": "cod_alert",
+        "data_type": "character varying",
+        "relation": "alerts_definition.cod_alert",
+        "human_readable_col_name": "codice alert"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "alerts_definition.var_model_id",
+        "human_readable_col_name": "id modello"
+      }
+    ],
+    "dom_grafana": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_grafana",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice grafana"
+      },
+      {
+        "column_name": "des_grafana",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione grafana"
+      },
+      {
+        "column_name": "des_grafana_url",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "URL grafana"
+      }
+    ],
+    "dom_alert_control_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_control_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice tipo controllo"
+      },
+      {
+        "column_name": "des_control_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo controllo"
+      }
+    ],
+    "evidence": [
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "ts_pred_source_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp sorgente predizione (ms)"
+      },
+      {
+        "column_name": "var_pred_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data predizione"
+      },
+      {
+        "column_name": "arr_prediction",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "predizioni (array)"
+      },
+      {
+        "column_name": "arr_pred_confidence",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "confidenze predizioni (array)"
+      },
+      {
+        "column_name": "json_sensitive_features",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json caratteristiche sensibili"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "arr_y_true",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "valori reali (array)"
+      },
+      {
+        "column_name": "ts_submit_timestamp",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp invio"
+      },
+      {
+        "column_name": "var_submit_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data invio"
+      },
+      {
+        "column_name": "var_prediction_ref",
+        "data_type": "character varying",
+        "relation": "prediction.var_prediction_ref",
+        "human_readable_col_name": "riferimento predizione"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "var_pred_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente predizione"
+      },
+      {
+        "column_name": "var_submit_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente invio"
+      }
+    ],
+    "model": [
+      {
+        "column_name": "int_output_dimensions",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "dimensioni output"
+      },
+      {
+        "column_name": "bool_calc_fairness",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "calcolo fairness"
+      },
+      {
+        "column_name": "bool_calc_custom",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "calcolo custom"
+      },
+      {
+        "column_name": "bool_has_evidence",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "ha evidenza"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_name",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "nome"
+      },
+      {
+        "column_name": "var_description",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione"
+      },
+      {
+        "column_name": "var_api_token",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "token API"
+      },
+      {
+        "column_name": "cod_model_registry",
+        "data_type": "character varying",
+        "relation": "models_registry.cod_model_registry",
+        "human_readable_col_name": "codice registro modelli"
+      },
+      {
+        "column_name": "var_type",
+        "data_type": "character varying",
+        "relation": "dom_model_type.var_type",
+        "human_readable_col_name": "tipo modello"
+      },
+      {
+        "column_name": "output_type",
+        "data_type": "character varying",
+        "relation": "dom_output_type.output_type",
+        "human_readable_col_name": "tipo output"
+      },
+      {
+        "column_name": "var_model_freq",
+        "data_type": "character varying",
+        "relation": "dom_model_freq.var_model_freq",
+        "human_readable_col_name": "frequenza modello"
+      }
+    ],
+    "model_classes": [
+      {
+        "column_name": "cod_class",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "codice classe"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "des_class",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione classe"
+      }
+    ],
+    "model_grafana": [
+      {
+        "column_name": "dat_validity_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_validity_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "flg_main_dashboard",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag dashboard principale"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "cod_grafana",
+        "data_type": "character varying",
+        "relation": "dom_grafana.cod_grafana",
+        "human_readable_col_name": "codice grafana"
+      }
+    ],
+    "dom_ingested_metric_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_ingested_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice tipo ingestito"
+      },
+      {
+        "column_name": "des_ingested_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo ingestito"
+      }
+    ],
+    "model_metrics": [
+      {
+        "column_name": "num_execution_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine esecuzione"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": "metric_definition.var_metric_id",
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "min_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata minima"
+      }
+    ],
+    "discarded_inputs": [
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "json_input",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json input"
+      },
+      {
+        "column_name": "json_error",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json errore"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "cod_discarded_reason",
+        "data_type": "character varying",
+        "relation": "dom_discarded_reasons.cod_discarded_reason",
+        "human_readable_col_name": "codice motivo scarto"
+      },
+      {
+        "column_name": "cod_discarded_source",
+        "data_type": "character varying",
+        "relation": "dom_discarded_source.cod_discarded_source",
+        "human_readable_col_name": "codice sorgente scarto"
+      },
+      {
+        "column_name": "des_note",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "nota descrittiva"
+      }
+    ],
+    "dom_model_supertype": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_model_supertype",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice supertipo modello"
+      },
+      {
+        "column_name": "des_model_supertype",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione supertipo modello"
+      }
+    ],
+    "ingested_metrics_point": [
+      {
+        "column_name": "ts_point_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp punto (ms)"
+      },
+      {
+        "column_name": "dat_point",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data punto"
+      },
+      {
+        "column_name": "arr_point_value",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "valori punto (array)"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "flg_valid",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag valido"
+      },
+      {
+        "column_name": "des_invalidata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "dati invalidi (descrizione)"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "metric_ref",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "riferimento metrica"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": "ingested_metric_definition.var_ingested_metric_id",
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "des_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente"
+      }
+    ],
+    "dom_alert_control_operator": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_control_operator",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice operatore controllo"
+      },
+      {
+        "column_name": "des_control_operator",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione operatore controllo"
+      },
+      {
+        "column_name": "des_control_operator_short",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione operatore controllo (breve)"
+      }
+    ],
+    "models_registry": [
+      {
+        "column_name": "dat_validity_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_validity_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "cod_model_registry",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice registro modelli"
+      },
+      {
+        "column_name": "des_model_registry",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione registro modelli"
+      }
+    ],
+    "model_reports": [
+      {
+        "column_name": "dat_validity_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_validity_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "flg_email",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag email"
+      },
+      {
+        "column_name": "day_of_month_mail",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "giorno del mese per mail"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "cod_report",
+        "data_type": "character varying",
+        "relation": "dom_reports.cod_report",
+        "human_readable_col_name": "codice report"
+      }
+    ],
+    "dom_metric_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_metric_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice tipo metrica"
+      },
+      {
+        "column_name": "des_metric_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo metrica"
+      }
+    ],
+    "dom_model_freq": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_model_freq",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "frequenza modello"
+      },
+      {
+        "column_name": "des_model_freq",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione frequenza modello"
+      }
+    ],
+    "ingested_metric_definition": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "var_description",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione"
+      },
+      {
+        "column_name": "cod_ingested_type",
+        "data_type": "character varying",
+        "relation": "dom_ingested_metric_type.cod_ingested_type",
+        "human_readable_col_name": "codice tipo ingestito"
+      },
+      {
+        "column_name": "des_notes",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "note"
+      }
+    ],
+    "dom_calc_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_calc_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice tipo calcolo"
+      },
+      {
+        "column_name": "des_calc_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo calcolo"
+      }
+    ],
+    "platform_users": [
+      {
+        "column_name": "dat_validity_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_validity_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "cod_user",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice utente"
+      },
+      {
+        "column_name": "des_user",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "nome utente"
+      },
+      {
+        "column_name": "des_email",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "email utente"
+      }
+    ],
+    "dom_output_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "output_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "tipo output"
+      },
+      {
+        "column_name": "des_output_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo output"
+      }
+    ],
+    "models_retraining": [
+      {
+        "column_name": "ts_retraining",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp retraining"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "des_note",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "nota descrittiva"
+      }
+    ],
+    "evidence_bck": [
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "ts_pred_source_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp sorgente predizione (ms)"
+      },
+      {
+        "column_name": "var_pred_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data predizione"
+      },
+      {
+        "column_name": "arr_prediction",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "predizioni (array)"
+      },
+      {
+        "column_name": "arr_pred_confidence",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "confidenze predizioni (array)"
+      },
+      {
+        "column_name": "json_sensitive_features",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json caratteristiche sensibili"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "arr_y_true",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "valori reali (array)"
+      },
+      {
+        "column_name": "ts_submit_timestamp",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp invio"
+      },
+      {
+        "column_name": "var_submit_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data invio"
+      },
+      {
+        "column_name": "var_prediction_ref",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "riferimento predizione"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "var_pred_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente predizione"
+      },
+      {
+        "column_name": "var_submit_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente invio"
+      }
+    ],
+    "prediction": [
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "ts_pred_source_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp sorgente predizione (ms)"
+      },
+      {
+        "column_name": "var_pred_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data predizione"
+      },
+      {
+        "column_name": "arr_prediction",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "predizioni (array)"
+      },
+      {
+        "column_name": "arr_pred_confidence",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "confidenze predizioni (array)"
+      },
+      {
+        "column_name": "json_sensitive_features",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json caratteristiche sensibili"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "var_prediction_ref",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "riferimento predizione"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "var_pred_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente predizione"
+      }
+    ],
+    "prediction_bck": [
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "ts_pred_source_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp sorgente predizione (ms)"
+      },
+      {
+        "column_name": "var_pred_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data predizione"
+      },
+      {
+        "column_name": "arr_prediction",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "predizioni (array)"
+      },
+      {
+        "column_name": "arr_pred_confidence",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "confidenze predizioni (array)"
+      },
+      {
+        "column_name": "json_sensitive_features",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json caratteristiche sensibili"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "var_prediction_ref",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "riferimento predizione"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "var_pred_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente predizione"
+      }
+    ],
+    "dom_alert_severity": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_alert_severity",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice gravità alert"
+      },
+      {
+        "column_name": "des_alert_severity",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione gravità alert"
+      }
+    ],
+    "queued_jobs_evidence": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "dom_model_type": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "tipo modello"
+      },
+      {
+        "column_name": "des_model_type",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione tipo modello"
+      },
+      {
+        "column_name": "cod_model_supertype",
+        "data_type": "character varying",
+        "relation": "dom_model_supertype.cod_model_supertype",
+        "human_readable_col_name": "codice supertipo modello"
+      }
+    ],
+    "ingested_metrics_tf": [
+      {
+        "column_name": "ts_timeframe_start_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio timeframe (ms)"
+      },
+      {
+        "column_name": "ts_timeframe_end_ms",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine timeframe (ms)"
+      },
+      {
+        "column_name": "dat_tf_start_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio timeframe"
+      },
+      {
+        "column_name": "dat_tf_end_date",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine timeframe"
+      },
+      {
+        "column_name": "arr_point_value",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "valori punto (array)"
+      },
+      {
+        "column_name": "num_measures",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero misure"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "flg_valid",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag valido"
+      },
+      {
+        "column_name": "des_invaliddata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "dati invalidi (descrizione)"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "metric_ref",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "riferimento metrica"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": "ingested_metric_definition.var_ingested_metric_id",
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "var_model_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione modello"
+      },
+      {
+        "column_name": "des_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "sorgente"
+      }
+    ],
+    "queued_jobs_ingested": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": "ingested_metric_definition.var_ingested_metric_id",
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "queued_jobs_prediction": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "dom_discarded_reasons": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_discarded_reason",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice motivo scarto"
+      },
+      {
+        "column_name": "des_discarded_reason",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione motivo scarto"
+      }
+    ],
+    "dom_swa_permissions": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_permission",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice permesso"
+      },
+      {
+        "column_name": "des_permission",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione permesso"
+      }
+    ],
+    "window_durations": [
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "des_duration",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione durata"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id durata"
+      }
+    ],
+    "use_case_models": [
+      {
+        "column_name": "dat_association_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio associazione"
+      },
+      {
+        "column_name": "dat_association_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine associazione"
+      },
+      {
+        "column_name": "cod_use_case",
+        "data_type": "character varying",
+        "relation": "use_case_registry.cod_use_case",
+        "human_readable_col_name": "codice caso d'uso"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      }
+    ],
+    "metric": [
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "cod_class",
+        "data_type": "integer",
+        "relation": "model_classes.cod_class",
+        "human_readable_col_name": "codice classe"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "flt_result",
+        "data_type": "double precision",
+        "relation": null,
+        "human_readable_col_name": "risultato"
+      },
+      {
+        "column_name": "json_metadata",
+        "data_type": "jsonb",
+        "relation": null,
+        "human_readable_col_name": "json metadata"
+      },
+      {
+        "column_name": "ts_create_row",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp creazione riga"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": "metric_definition.var_metric_id",
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "cod_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione"
+      }
+    ],
+    "dom_metric_dimensions": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_mono_multi_dimension",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice mono/multi dimensione"
+      },
+      {
+        "column_name": "des_mono_multi_dimension",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione mono/multi dimensione"
+      }
+    ],
+    "systems_users_permission": [
+      {
+        "column_name": "dat_association_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio associazione"
+      },
+      {
+        "column_name": "dat_association_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine associazione"
+      },
+      {
+        "column_name": "cod_user",
+        "data_type": "character varying",
+        "relation": "platform_users.cod_user",
+        "human_readable_col_name": "codice utente"
+      },
+      {
+        "column_name": "cod_use_case",
+        "data_type": "character varying",
+        "relation": "use_case_registry.cod_user",
+        "human_readable_col_name": "codice caso d'uso"
+      }
+    ],
+    "dom_reports": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_report",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice report"
+      },
+      {
+        "column_name": "des_report",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione report"
+      },
+      {
+        "column_name": "des_script",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "script report"
+      }
+    ],
+    "use_case_registry": [
+      {
+        "column_name": "dat_validity_start",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data inizio validità"
+      },
+      {
+        "column_name": "dat_validity_end",
+        "data_type": "date",
+        "relation": null,
+        "human_readable_col_name": "data fine validità"
+      },
+      {
+        "column_name": "cod_use_case",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice caso d'uso"
+      },
+      {
+        "column_name": "des_use_case",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione caso d'uso"
+      }
+    ],
+    "window_evidence": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "dom_valid_duration_frequency": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      }
+    ],
+    "dom_discarded_source": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "cod_discarded_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice sorgente scarto"
+      },
+      {
+        "column_name": "des_discarded_source",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione sorgente scarto"
+      }
+    ],
+    "window_ingested": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": "ingested_metric_definition.var_ingested_metric_id",
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "dom_window_frequency": [
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "des_frequency",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione frequenza"
+      }
+    ],
+    "metric_definition": [
+      {
+        "column_name": "flg_class_aware",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag sensibile alla classe"
+      },
+      {
+        "column_name": "flg_param_aware",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag sensibile ai parametri"
+      },
+      {
+        "column_name": "flg_grafana",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag grafana"
+      },
+      {
+        "column_name": "flg_active",
+        "data_type": "boolean",
+        "relation": null,
+        "human_readable_col_name": "flag attivo"
+      },
+      {
+        "column_name": "num_order",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "ordine"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "var_description",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "descrizione"
+      },
+      {
+        "column_name": "var_lib_id",
+        "data_type": "character varying",
+        "relation": "lib_definition.var_lib_id",
+        "human_readable_col_name": "id libreria"
+      },
+      {
+        "column_name": "cod_model_supertypes",
+        "data_type": "ARRAY",
+        "relation": null,
+        "human_readable_col_name": "supertypes modelli (array)"
+      },
+      {
+        "column_name": "cod_metric_subtype",
+        "data_type": "character varying",
+        "relation": "dom_metric_subtype.cod_metric_subtype",
+        "human_readable_col_name": "codice sottotipo metrica"
+      },
+      {
+        "column_name": "model_output_type",
+        "data_type": "character varying",
+        "relation": "dom_output_type.output_type",
+        "human_readable_col_name": "tipo output modello"
+      },
+      {
+        "column_name": "var_ingested_metric_id",
+        "data_type": "character varying",
+        "relation": "ingested_metric_definition.var_ingested_metric_id",
+        "human_readable_col_name": "id metrica ingestita"
+      },
+      {
+        "column_name": "im_count_metric_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id metrica conteggio"
+      },
+      {
+        "column_name": "var_ingestion_func",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "funzione di ingestione"
+      }
+    ],
+    "window_prediction": [
+      {
+        "column_name": "ts_activity",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp attività"
+      },
+      {
+        "column_name": "ts_window_start",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp inizio finestra"
+      },
+      {
+        "column_name": "ts_window_end",
+        "data_type": "timestamp with time zone",
+        "relation": null,
+        "human_readable_col_name": "timestamp fine finestra"
+      },
+      {
+        "column_name": "int_tf_to_calc",
+        "data_type": "integer",
+        "relation": null,
+        "human_readable_col_name": "numero timeframe da calcolare"
+      },
+      {
+        "column_name": "var_window_id",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "id finestra"
+      },
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "var_trigger",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "trigger"
+      }
+    ],
+    "model_parameters": [
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_metric_id",
+        "data_type": "character varying",
+        "relation": "metric_definition.var_metric_id",
+        "human_readable_col_name": "id metrica"
+      },
+      {
+        "column_name": "cod_version",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "versione"
+      },
+      {
+        "column_name": "cod_parameter",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "codice parametro"
+      },
+      {
+        "column_name": "val_param",
+        "data_type": "character varying",
+        "relation": null,
+        "human_readable_col_name": "valore parametro"
+      }
+    ],
+    "model_window": [
+      {
+        "column_name": "var_model_id",
+        "data_type": "character varying",
+        "relation": "model.var_model_id",
+        "human_readable_col_name": "id modello"
+      },
+      {
+        "column_name": "var_duration_id",
+        "data_type": "character varying",
+        "relation": "window_durations.var_duration_id",
+        "human_readable_col_name": "id durata"
+      },
+      {
+        "column_name": "var_frequency_id",
+        "data_type": "character varying",
+        "relation": "dom_window_frequency.var_frequency_id",
+        "human_readable_col_name": "id frequenza"
+      },
+      {
+        "column_name": "cod_quant_calc_type",
+        "data_type": "character varying",
+        "relation": "dom_calc_type.cod_calc_type",
+        "human_readable_col_name": "codice tipo calcolo quantitativo"
+      },
+      {
+        "column_name": "cod_qual_calc_type",
+        "data_type": "character varying",
+        "relation": "dom_calc_type.cod_calc_type",
+        "human_readable_col_name": "codice tipo calcolo qualitativo"
+      },
+      {
+        "column_name": "cod_ingested_calc_type",
+        "data_type": "character varying",
+        "relation": "dom_calc_type.cod_calc_type",
+        "human_readable_col_name": "codice tipo calcolo ingestito"
+      }
+    ]
+  },
+  "table_pks": {
+    "alerts": [
+      "cod_alert",
+      "var_model_id",
+      "ts_alert"
+    ],
+    "alerts_definition": [
+      "cod_alert",
+      "var_model_id"
+    ],
+    "discarded_inputs": [
+      "ts_create_row",
+      "var_model_id"
+    ],
+    "dom_alert_control_operator": [
+      "cod_control_operator"
+    ],
+    "dom_alert_control_type": [
+      "cod_control_type"
+    ],
+    "dom_alert_severity": [
+      "cod_alert_severity"
+    ],
+    "dom_calc_type": [
+      "cod_calc_type"
+    ],
+    "dom_discarded_reasons": [
+      "cod_discarded_reason"
+    ],
+    "dom_discarded_source": [
+      "cod_discarded_source"
+    ],
+    "dom_grafana": [
+      "cod_grafana"
+    ],
+    "dom_ingested_metric_type": [
+      "cod_ingested_type"
+    ],
+    "dom_metric_dimensions": [
+      "cod_mono_multi_dimension"
+    ],
+    "dom_metric_subtype": [
+      "cod_metric_subtype"
+    ],
+    "dom_metric_type": [
+      "cod_metric_type"
+    ],
+    "dom_model_freq": [
+      "var_model_freq"
+    ],
+    "dom_model_supertype": [
+      "cod_model_supertype"
+    ],
+    "dom_model_type": [
+      "var_type"
+    ],
+    "dom_output_type": [
+      "output_type"
+    ],
+    "dom_reports": [
+      "cod_report"
+    ],
+    "dom_swa_permissions": [
+      "cod_permission"
+    ],
+    "dom_valid_duration_frequency": [
+      "var_frequency_id",
+      "var_duration_id"
+    ],
+    "dom_window_frequency": [
+      "var_frequency_id"
+    ],
+    "evidence": [
+      "var_prediction_ref"
+    ],
+    "evidence_bck": [
+      "var_prediction_ref"
+    ],
+    "ingested_metric_definition": [
+      "var_ingested_metric_id"
+    ],
+    "ingested_metrics_point": [
+      "metric_ref"
+    ],
+    "ingested_metrics_tf": [
+      "metric_ref"
+    ],
+    "lib_definition": [
+      "var_lib_id"
+    ],
+    "metric": [
+      "var_model_id",
+      "var_metric_id",
+      "ts_window_start",
+      "var_duration_id",
+      "cod_class",
+      "cod_version"
+    ],
+    "metric_bck": [
+      "var_model_id",
+      "var_metric_id",
+      "ts_window_start",
+      "var_duration_id",
+      "cod_class",
+      "cod_version"
+    ],
+    "metric_definition": [
+      "var_metric_id"
+    ],
+    "model": [
+      "var_model_id"
+    ],
+    "model_classes": [
+      "var_model_id",
+      "cod_class"
+    ],
+    "model_grafana": [
+      "var_model_id",
+      "cod_grafana"
+    ],
+    "model_metrics": [
+      "var_model_id",
+      "var_metric_id"
+    ],
+    "model_parameters": [
+      "var_model_id",
+      "var_metric_id",
+      "cod_version",
+      "cod_parameter"
+    ],
+    "model_reports": [
+      "var_model_id",
+      "cod_report"
+    ],
+    "model_window": [
+      "var_model_id",
+      "var_duration_id"
+    ],
+    "models_registry": [
+      "cod_model_registry"
+    ],
+    "models_retraining": [
+      "var_model_id",
+      "ts_retraining"
+    ],
+    "platform_users": [
+      "cod_user"
+    ],
+    "prediction": [
+      "var_prediction_ref"
+    ],
+    "prediction_bck": [
+      "var_prediction_ref"
+    ],
+    "queued_jobs_evidence": [
+      "var_window_id"
+    ],
+    "queued_jobs_ingested": [
+      "var_window_id"
+    ],
+    "queued_jobs_prediction": [
+      "var_window_id"
+    ],
+    "systems_users_permission": [
+      "cod_user",
+      "cod_use_case"
+    ],
+    "use_case_models": [
+      "cod_use_case",
+      "var_model_id"
+    ],
+    "use_case_registry": [
+      "cod_use_case"
+    ],
+    "window_durations": [
+      "var_duration_id"
+    ],
+    "window_evidence": [
+      "var_window_id"
+    ],
+    "window_ingested": [
+      "var_window_id"
+    ],
+    "window_prediction": [
+      "var_window_id"
+    ]
+  }
+}

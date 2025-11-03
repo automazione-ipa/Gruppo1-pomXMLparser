@@ -1,7 +1,7 @@
 # system_state.py
 from pydantic import BaseModel
 from typing import Optional
-from src.agents.models import TravelRequest, UserProfile, TravelResponse
+from core.models import TravelRequest, UserProfile, TravelResponse
 
 
 class SystemState(BaseModel):
